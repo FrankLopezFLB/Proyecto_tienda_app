@@ -1,3 +1,4 @@
 /packages
-/bin
-/obj
+Proyecto_tienda_app/bin
+Proyecto_tienda_app/obj
+.vs
