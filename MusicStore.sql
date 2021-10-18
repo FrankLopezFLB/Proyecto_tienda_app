@@ -159,6 +159,7 @@ id int references categorias,
 stock smallint not null,
 precio decimal(6,2) not null,
 estado tinyint default 1,
+rutaImg varchar(150) not null,
 constraint pk_productoID primary key clustered (codigoProd)
 )
 GO
@@ -192,9 +193,10 @@ CREATE OR ALTER PROC sp_insertProduct
 @descripcion varchar(100),
 @idCat int,
 @stock int,
-@precio decimal(6,2)
+@precio decimal(6,2),
+@imagen varchar(150)
 AS
-INSERT INTO productos (nombre,descripcion,id,stock,precio) VALUES(@nombre,@descripcion,@idCat,@stock,@precio)
+INSERT INTO productos (nombre,descripcion,id,stock,precio,rutaImg) VALUES(@nombre,@descripcion,@idCat,@stock,@precio,@imagen)
 GO
 
 CREATE OR ALTER PROC sp_updateProduct
@@ -203,9 +205,10 @@ CREATE OR ALTER PROC sp_updateProduct
 @idCat int,
 @stock int,
 @precio decimal(6,2),
-@codigo int
+@codigo int,
+@imagen varchar(150)
 AS
-UPDATE productos SET nombre=@nombre, @descripcion=@descripcion, id=@idCat, stock=@stock, precio=@precio where codigoProd=@codigo
+UPDATE productos SET nombre=@nombre, @descripcion=@descripcion, id=@idCat, stock=@stock, precio=@precio, rutaImg=@imagen where codigoProd=@codigo
 GO
 
 CREATE OR ALTER PROC sp_deleteProduct
@@ -218,3 +221,11 @@ CREATE OR ALTER PROC sp_listProduct
 AS
 SELECT * FROM productos WHERE estado = 1
 GO
+
+CREATE OR ALTER PROC sp_listCategoria
+AS
+SELECT * FROM categorias
+go
+
+exec sp_listCategoria
+go
