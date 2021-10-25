@@ -22,7 +22,7 @@ CREATE TABLE cliente (
   apellido varchar(25) NOT NULL,
   telefono char(9) NULL,
   direccion varchar(200) NULL,
-  usuario varchar(30) NOT NULL UNIQUE,
+  email varchar(100) NULL UNIQUE,
   clave varchar(150) NOT NULL,
   CONSTRAINT pk_registroClienteID PRIMARY KEY CLUSTERED (codigo)
 )
@@ -47,9 +47,8 @@ CREATE TABLE trabajador (
   apellido varchar(25) NOT NULL,
   telefono char(9) NULL,
   direccion varchar(200) NULL,
-  usuario varchar(30) NOT NULL UNIQUE,
-  clave varchar(150) NOT NULL,
-  email varchar(100) NULL,
+  email varchar(100) NULL UNIQUE,
+  clave varchar(150) NOT NULL,  
   dni char(8) NOT NULL UNIQUE,
   id int REFERENCES puestos,
   CONSTRAINT pk_registroTrabajadorID PRIMARY KEY CLUSTERED (codigo)
