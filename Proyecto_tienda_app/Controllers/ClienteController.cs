@@ -9,12 +9,12 @@ namespace Proyecto_tienda_app.DAO
 {
     public class ClienteController : Controller
     {
+        clienteDAO cliente = new clienteDAO();
+
         // GET
         public ActionResult Registrar()
         {
-            Cliente nuevoCliente = new Cliente();
-
-            return View(nuevoCliente);
+            return View();
         }
 
         [HttpPost]

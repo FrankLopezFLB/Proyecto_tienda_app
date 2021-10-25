@@ -149,6 +149,7 @@
     </Compile>
     <Compile Include="Models\Categoria.cs" />
     <Compile Include="Models\Cliente.cs" />
+    <Compile Include="Models\Response.cs" />
     <Compile Include="Models\Trabajador.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Models\Producto.cs" />
