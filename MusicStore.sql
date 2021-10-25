@@ -24,6 +24,7 @@ CREATE TABLE cliente (
   direccion varchar(200) NULL,
   email varchar(100) NULL UNIQUE,
   clave varchar(150) NOT NULL,
+  estado INT NOT NULL DEFAULT 1
   CONSTRAINT pk_registroClienteID PRIMARY KEY CLUSTERED (codigo)
 )
 GO
@@ -51,6 +52,7 @@ CREATE TABLE trabajador (
   clave varchar(150) NOT NULL,  
   dni char(8) NOT NULL UNIQUE,
   id int REFERENCES puestos,
+  estado INT NOT NULL DEFAULT 1,
   CONSTRAINT pk_registroTrabajadorID PRIMARY KEY CLUSTERED (codigo)
 )
 GO
