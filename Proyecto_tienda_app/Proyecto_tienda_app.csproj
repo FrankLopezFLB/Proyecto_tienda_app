@@ -144,6 +144,7 @@
     <Compile Include="DAO\clienteDAO.cs" />
     <Compile Include="DAO\conexionDAO.cs" />
     <Compile Include="DAO\productosDAO.cs" />
+    <Compile Include="DAO\trabajadorDAO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

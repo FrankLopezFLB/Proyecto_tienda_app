@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
 using System.Data;
 using Proyecto_tienda_app.Models;
+using System.Data.SqlClient;
 
 namespace Proyecto_tienda_app.DAO
 {
-    public class clienteDAO
+    public class trabajadorDAO
     {
-        public IEnumerable<Cliente> Listado()
+        public IEnumerable<Trabajador> Listado()
         {
-            List<Cliente> temporal = new List<Cliente>();
+            List<Trabajador> temporal = new List<Trabajador>();
             conexionDAO cn = new conexionDAO();
             using (cn.getcn)
             {
@@ -25,7 +25,7 @@ namespace Proyecto_tienda_app.DAO
 
                 while (dr.Read())
                 {
-                    temporal.Add(new Cliente()
+                    temporal.Add(new Trabajador()
                     {
                         Codigo = dr.GetInt32(0),
                         Nombre = dr.GetString(1),
@@ -45,32 +45,32 @@ namespace Proyecto_tienda_app.DAO
             return temporal;
         }
 
-        public Cliente Buscar(int id)
+        public Trabajador Buscar(int id)
         {
             return Listado().FirstOrDefault(p => p.Codigo == id);
         }
 
-        public Response Registrar(Cliente cliente)
+        public Response Registrar(Trabajador trabajador)
         {
             conexionDAO cn = new conexionDAO();
             Response response = new Response();
 
             try
             {
-                SqlCommand command = new SqlCommand("sp_registrar_cliente", cn.getcn);
+                SqlCommand command = new SqlCommand("sp_registrar_trabajador", cn.getcn);
                 command.CommandType = CommandType.StoredProcedure;
 
-                command.Parameters.AddWithValue("@nombre", cliente.Nombre);
-                command.Parameters.AddWithValue("@apellido", cliente.Apellido);
-                command.Parameters.AddWithValue("@telefono", cliente.Telefono);
-                command.Parameters.AddWithValue("@direccion", cliente.Direccion);
-                command.Parameters.AddWithValue("@email", cliente.Email);
-                command.Parameters.AddWithValue("@clave", cliente.Clave);
+                command.Parameters.AddWithValue("@nombre", trabajador.Nombre);
+                command.Parameters.AddWithValue("@apellido", trabajador.Apellido);
+                command.Parameters.AddWithValue("@telefono", trabajador.Telefono);
+                command.Parameters.AddWithValue("@direccion", trabajador.Direccion);
+                command.Parameters.AddWithValue("@email", trabajador.Email);
+                command.Parameters.AddWithValue("@clave", trabajador.Clave);
 
                 cn.getcn.Open();
 
                 response.FilasAfectadas = command.ExecuteNonQuery();
-                response.Mensaje = "Cliente registrado correctamente";
+                response.Mensaje = "Trabajador registrado correctamente";
                 response.HayError = false;
 
             }
@@ -79,7 +79,8 @@ namespace Proyecto_tienda_app.DAO
                 response.HayError = true;
                 response.Mensaje = e.Message;
 
-            } finally
+            }
+            finally
             {
                 cn.getcn.Close();
             }
@@ -87,28 +88,28 @@ namespace Proyecto_tienda_app.DAO
             return response;
         }
 
-        public Response Actualizar(Cliente cliente)
+        public Response Actualizar(Trabajador trabajador)
         {
             conexionDAO cn = new conexionDAO();
             Response response = new Response();
 
             try
             {
-                SqlCommand command = new SqlCommand("sp_actualizar_cliente", cn.getcn);
+                SqlCommand command = new SqlCommand("sp_actualizar_trabajador", cn.getcn);
                 command.CommandType = CommandType.StoredProcedure;
 
-                command.Parameters.AddWithValue("@codigo", cliente.Codigo);
-                command.Parameters.AddWithValue("@nombre", cliente.Nombre);
-                command.Parameters.AddWithValue("@apellido", cliente.Apellido);
-                command.Parameters.AddWithValue("@telefono", cliente.Telefono);
-                command.Parameters.AddWithValue("@direccion", cliente.Direccion);
-                command.Parameters.AddWithValue("@email", cliente.Email);
-                command.Parameters.AddWithValue("@clave", cliente.Clave);
+                command.Parameters.AddWithValue("@codigo", trabajador.Codigo);
+                command.Parameters.AddWithValue("@nombre", trabajador.Nombre);
+                command.Parameters.AddWithValue("@apellido", trabajador.Apellido);
+                command.Parameters.AddWithValue("@telefono", trabajador.Telefono);
+                command.Parameters.AddWithValue("@direccion", trabajador.Direccion);
+                command.Parameters.AddWithValue("@email", trabajador.Email);
+                command.Parameters.AddWithValue("@clave", trabajador.Clave);
 
                 cn.getcn.Open();
 
                 response.FilasAfectadas = command.ExecuteNonQuery();
-                response.Mensaje = "Cliente actualizado correctamente";
+                response.Mensaje = "Trabajador actualizado correctamente";
                 response.HayError = false;
 
             }
@@ -133,7 +134,7 @@ namespace Proyecto_tienda_app.DAO
 
             try
             {
-                SqlCommand command = new SqlCommand("sp_eliminar_cliente", cn.getcn);
+                SqlCommand command = new SqlCommand("sp_eliminar_trabajador", cn.getcn);
                 command.CommandType = CommandType.StoredProcedure;
 
                 command.Parameters.AddWithValue("@codigo", codigo);
@@ -141,7 +142,7 @@ namespace Proyecto_tienda_app.DAO
                 cn.getcn.Open();
 
                 response.FilasAfectadas = command.ExecuteNonQuery();
-                response.Mensaje = "Cliente eliminado correctamente";
+                response.Mensaje = "Trabajador eliminado correctamente";
                 response.HayError = false;
             }
             catch (Exception e)
@@ -149,7 +150,8 @@ namespace Proyecto_tienda_app.DAO
                 response.Mensaje = e.Message;
                 response.HayError = false;
 
-            }finally
+            }
+            finally
             {
                 cn.getcn.Close();
             }
@@ -167,7 +169,8 @@ namespace Proyecto_tienda_app.DAO
                 SqlCommand cmd = new SqlCommand(procedure, cn.getcn);
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                if (sqlParameters != null) {
+                if (sqlParameters != null)
+                {
                     cmd.Parameters.AddRange(sqlParameters.ToArray());
                 }
 
@@ -178,13 +181,13 @@ namespace Proyecto_tienda_app.DAO
                 switch (opcion)
                 {
                     case 1:
-                        response.Mensaje = "Cliente registrado correctamente";
+                        response.Mensaje = "Trabajador registrado correctamente";
                         break;
                     case 2:
-                        response.Mensaje = "Cliente actualizado correctamente";
+                        response.Mensaje = "Trabajador actualizado correctamente";
                         break;
                     case 3:
-                        response.Mensaje = "Cliente eliminado correctamente";
+                        response.Mensaje = "Trabajador eliminado correctamente";
                         break;
                 }
 
@@ -196,7 +199,8 @@ namespace Proyecto_tienda_app.DAO
                 response.HayError = false;
                 response.Mensaje = ex.Message;
             }
-            finally {
+            finally
+            {
                 cn.getcn.Close();
             }
 
