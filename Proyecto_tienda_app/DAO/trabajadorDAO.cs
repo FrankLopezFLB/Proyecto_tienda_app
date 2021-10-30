@@ -66,6 +66,8 @@ namespace Proyecto_tienda_app.DAO
                 command.Parameters.AddWithValue("@direccion", trabajador.Direccion);
                 command.Parameters.AddWithValue("@email", trabajador.Email);
                 command.Parameters.AddWithValue("@clave", trabajador.Clave);
+                command.Parameters.AddWithValue("@dni", trabajador.Dni);
+                command.Parameters.AddWithValue("@idpuesto", trabajador.PuestoId);
 
                 cn.getcn.Open();
 
@@ -105,6 +107,8 @@ namespace Proyecto_tienda_app.DAO
                 command.Parameters.AddWithValue("@direccion", trabajador.Direccion);
                 command.Parameters.AddWithValue("@email", trabajador.Email);
                 command.Parameters.AddWithValue("@clave", trabajador.Clave);
+                command.Parameters.AddWithValue("@dni", trabajador.Dni);
+                command.Parameters.AddWithValue("@idpuesto", trabajador.PuestoId);
 
                 cn.getcn.Open();
 
