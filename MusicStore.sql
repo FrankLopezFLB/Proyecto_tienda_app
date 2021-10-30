@@ -165,25 +165,26 @@ constraint pk_productoID primary key clustered (codigoProd)
 )
 GO
 
-/*DETALLE DE BOLETA*/
-CREATE TABLE detalleBoleta
-(
-codigoDetalleBol int identity(1,1) not null,
-codigoProd int references productos,
-monto decimal(10,2) not null,
-cantidad int not null,
-constraint pk_DetalleBoletaID primary key clustered (codigoDetalleBol)
-)
-go
-
 /*CABECERA DE BOLETA*/
 CREATE TABLE boleta
 (
 codigoBol int identity(10000,1) not null,
-codigoDetalleBol int REFERENCES detalleBoleta,
 precioTotal decimal(10,2) not null,
 fecha date not null,
-constraint pk_boletaID primary key clustered (codigoBol)
+codigoCliente int not null,
+constraint pk_boletaID primary key clustered (codigoBol),
+constraint fk_boletaCliente foreign key(codigoCliente) references cliente(codigo)
+)
+go
+
+/*DETALLE DE BOLETA*/
+CREATE TABLE detalleBoleta
+(
+codigoBol int references boleta,
+codigoProd int references productos,
+monto decimal(10,2) not null,
+cantidad int not null,
+constraint pk_BoleProd primary key clustered (codigoBol,codigoProd)
 )
 go
 
@@ -231,3 +232,16 @@ go
 exec sp_listCategoria
 go
 
+-- Sirve para mostrar informacion de las compras contenidas en una boleta
+CREATE OR ALTER PROCEDURE sp_detalle_bol_producto
+  @codigoBol INT
+AS
+  SELECT b.codigoBol, d.codigoProd, p.descripcion, p.rutaImg,
+         d.cantidad,d.monto
+  FROM boleta b
+  INNER JOIN detalleBoleta d
+    ON b.codigoBol = d.codigoBol
+  INNER JOIN productos p
+    ON d.codigoProd = p.codigoProd
+  WHERE d.codigoBol = @codigoBol
+GO
