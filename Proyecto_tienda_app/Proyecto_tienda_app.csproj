@@ -145,6 +145,7 @@
     <Compile Include="DAO\clienteDAO.cs" />
     <Compile Include="DAO\conexionDAO.cs" />
     <Compile Include="DAO\productosDAO.cs" />
+    <Compile Include="DAO\PuestoDAO.cs" />
     <Compile Include="DAO\trabajadorDAO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -153,6 +154,8 @@
     <Compile Include="Models\Categoria.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\DetalleBoleta.cs" />
+    <Compile Include="Models\DetalleBoletaProducto.cs" />
+    <Compile Include="Models\Puesto.cs" />
     <Compile Include="Models\Response.cs" />
     <Compile Include="Models\Trabajador.cs" />
     <Compile Include="Models\Usuario.cs" />
