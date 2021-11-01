@@ -133,7 +133,10 @@ CREATE TABLE direccionEnvio (
   referencia varchar(200) NOT NULL,
   id int REFERENCES distrito,
   codigoPostal char(5) NOT NULL,
-  CONSTRAINT pk_direcionEnvioID PRIMARY KEY CLUSTERED (codigoEnvio)
+  codigoCliente int not null,
+	
+  CONSTRAINT pk_direcionEnvioID PRIMARY KEY CLUSTERED (codigoEnvio),
+  constraint fk_envioCliente foreign key(codigoCliente) references cliente(codigo)
 )
 GO
 
