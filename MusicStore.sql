@@ -202,9 +202,6 @@ AS
 INSERT INTO productos (nombre,descripcion,codigoCat,stock,precio,rutaImg) VALUES(@nombre,@descripcion,@idCat,@stock,@precio,@imagen)
 GO
 
-exec sp_listProduct ("guitarra","asdas",1,1,123,"asdas")
-go
-go
 CREATE OR ALTER PROC sp_updateProduct
 @nombre varchar(100),
 @descripcion varchar(100),

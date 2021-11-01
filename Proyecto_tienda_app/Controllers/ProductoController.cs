@@ -27,7 +27,7 @@ namespace Proyecto_tienda_app.Controllers
 
             return View(reg);
         }
-     /*  [HttpPost]
+       [HttpPost]
         public ActionResult Index(string btncrud, Producto reg)
 
         {
@@ -181,7 +181,7 @@ namespace Proyecto_tienda_app.Controllers
 
             return View(reg);
 
-        }*/
-    } 
-    
+        }
+    }
+
 }
