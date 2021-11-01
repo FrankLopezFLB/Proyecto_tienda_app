@@ -168,10 +168,13 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Producto\_VistaProducto.cshtml" />
+    <Content Include="Views\Producto\CreateProducto.cshtml" />
+    <Content Include="Views\Producto\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Producto\" />
+    <Folder Include="IMAGENES\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

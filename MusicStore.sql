@@ -155,7 +155,7 @@ CREATE TABLE productos
 codigoProd int IDENTITY(1000,1) not null,
 nombre varchar(100) not null,
 descripcion varchar(100) not null,
-id int references categorias,
+codigoCat int references categorias,
 stock smallint not null,
 precio decimal(6,2) not null,
 estado tinyint default 1,
@@ -189,6 +189,7 @@ go
 /*PROCEDIMIENTOS ALMACENADOS*/
 
 CREATE OR ALTER PROC sp_insertProduct
+@codigo varchar,
 @nombre varchar(100),
 @descripcion varchar(100),
 @idCat int,
@@ -196,9 +197,12 @@ CREATE OR ALTER PROC sp_insertProduct
 @precio decimal(6,2),
 @imagen varchar(150)
 AS
-INSERT INTO productos (nombre,descripcion,id,stock,precio,rutaImg) VALUES(@nombre,@descripcion,@idCat,@stock,@precio,@imagen)
+INSERT INTO productos (nombre,descripcion,codigoCat,stock,precio,rutaImg) VALUES(@nombre,@descripcion,@idCat,@stock,@precio,@imagen)
 GO
 
+exec sp_listProduct ("guitarra","asdas",1,1,123,"asdas")
+go
+go
 CREATE OR ALTER PROC sp_updateProduct
 @nombre varchar(100),
 @descripcion varchar(100),
@@ -208,7 +212,7 @@ CREATE OR ALTER PROC sp_updateProduct
 @codigo int,
 @imagen varchar(150)
 AS
-UPDATE productos SET nombre=@nombre, @descripcion=@descripcion, id=@idCat, stock=@stock, precio=@precio, rutaImg=@imagen where codigoProd=@codigo
+UPDATE productos SET nombre=@nombre, @descripcion=@descripcion, codigoCat=@idCat, stock=@stock, precio=@precio, rutaImg=@imagen where codigoProd=@codigo
 GO
 
 CREATE OR ALTER PROC sp_deleteProduct
