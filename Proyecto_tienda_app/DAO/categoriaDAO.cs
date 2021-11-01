@@ -23,7 +23,7 @@ namespace Proyecto_tienda_app.DAO
 
             {
 
-                SqlCommand cmd = new SqlCommand("sp_listCategoria", cn.getcn);
+                SqlCommand cmd = new SqlCommand("exec sp_listCategoria", cn.getcn);
 
                 cn.getcn.Open();
 

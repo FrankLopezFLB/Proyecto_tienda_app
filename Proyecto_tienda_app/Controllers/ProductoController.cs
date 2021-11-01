@@ -21,12 +21,13 @@ namespace Proyecto_tienda_app.Controllers
             Producto reg = productos.Buscar(id);
             if (reg == null) reg = new Producto();
             //categorias
-            ViewBag.categorias = new SelectList(categorias.listado(), "codigo", "nombre", reg.codigo);
+            ViewBag.categorias = new SelectList(categorias.listado(), "codigo", "nombre", reg.idcategoria);
             //productos
             ViewBag.productos = productos.listado();
+
             return View(reg);
         }
-        [HttpPost]
+     /*  [HttpPost]
         public ActionResult Index(string btncrud, Producto reg)
 
         {
@@ -46,7 +47,7 @@ namespace Proyecto_tienda_app.Controllers
             }
 
         }
-        public ActionResult Agregar(Producto reg, HttpPostedFileBase archivo)
+       public ActionResult Agregar(Producto reg, HttpPostedFileBase archivo)
 
         {
 
@@ -55,11 +56,7 @@ namespace Proyecto_tienda_app.Controllers
             {
 
                 ViewBag.mensaje = "Seleccione una imagen";
-
-
-
-                ViewBag.categorias = new SelectList(categorias.listado(), "codigo", "nombre", reg.codigo);
-
+                ViewBag.categorias = new SelectList(categorias.listado(), "codigo", "nombre", reg.idcategoria);
                 ViewBag.productos = productos.listado();
 
                 return View(reg);
@@ -67,7 +64,7 @@ namespace Proyecto_tienda_app.Controllers
             }
             //si seleccionaste, lo guardamos en la carpeta FOTOS
 
-            string ruta = "~/FOTOS/" + System.IO.Path.GetFileName(archivo.FileName);
+            string ruta = "~/IMAGENES/" + System.IO.Path.GetFileName(archivo.FileName);
 
             archivo.SaveAs(Server.MapPath(ruta));
 
@@ -97,9 +94,7 @@ namespace Proyecto_tienda_app.Controllers
 
             ViewBag.mensaje = productos.CRUD("sp_insertProduct", pars, 1);
 
-
-
-            ViewBag.categorias = new SelectList(categorias.listado(), "codigo", "nombre", reg.codigo);
+            ViewBag.categorias = new SelectList(categorias.listado(), "codigo", "nombre", reg.idcategoria);
 
             ViewBag.productos = productos.listado();
 
@@ -117,7 +112,7 @@ namespace Proyecto_tienda_app.Controllers
 
 
 
-                ViewBag.categorias = new SelectList(categorias.listado(), "codigo", "nombre", reg.codigo);
+                ViewBag.categorias = new SelectList(categorias.listado(), "codigo", "nombre", reg.idcategoria);
 
                 ViewBag.productos = productos.listado();
 
@@ -126,7 +121,7 @@ namespace Proyecto_tienda_app.Controllers
             }
             //si seleccionaste, lo guardamos en la carpeta FOTOS
 
-            string ruta = "~/FOTOS/" + System.IO.Path.GetFileName(archivo.FileName);
+            string ruta = "~/IMAGENES/" + System.IO.Path.GetFileName(archivo.FileName);
 
             archivo.SaveAs(Server.MapPath(ruta));
 
@@ -151,7 +146,7 @@ namespace Proyecto_tienda_app.Controllers
 
             //ejecutar
 
-            ViewBag.mensaje = productos.CRUD("sp_updateProduct", pars, 1);
+            ViewBag.mensaje = productos.CRUD("sp_updateProduct", pars, 2);
 
 
 
@@ -178,9 +173,7 @@ namespace Proyecto_tienda_app.Controllers
 
             //ejecutar
 
-            ViewBag.mensaje = productos.CRUD("sp_deleteProduct", pars, 1);
-
-
+            ViewBag.mensaje = productos.CRUD("sp_deleteProduct", pars, 3);
 
             ViewBag.categorias = new SelectList(categorias.listado(), "codigo", "nombre", reg.codigo);
 
@@ -188,7 +181,7 @@ namespace Proyecto_tienda_app.Controllers
 
             return View(reg);
 
-        }
+        }*/
     } 
     
 }
