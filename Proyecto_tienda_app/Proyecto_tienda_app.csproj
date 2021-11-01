@@ -206,7 +206,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="IMAGENES\" />
     <Folder Include="Views\Cliente\" />
-    <Folder Include="Views\Producto\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
