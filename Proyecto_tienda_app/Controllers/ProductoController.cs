@@ -18,8 +18,9 @@ namespace Proyecto_tienda_app.Controllers
         public ActionResult Index(int id = 0)
         {
             //buscar
-            Producto reg = productos.Buscar(id);
-            if (reg == null) reg = new Producto();
+          //  Producto reg = productos.Buscar(id);
+          //  if (reg == null) reg = new Producto();
+            Producto reg = (id == 0 ? new Producto() : productos.Buscar(id));
             //categorias
             ViewBag.categorias = new SelectList(categorias.listado(), "codigo", "nombre", reg.idcategoria);
             //productos
@@ -27,7 +28,7 @@ namespace Proyecto_tienda_app.Controllers
 
             return View(reg);
         }
-     /*  [HttpPost]
+      [HttpPost]
         public ActionResult Index(string btncrud, Producto reg)
 
         {
@@ -181,7 +182,7 @@ namespace Proyecto_tienda_app.Controllers
 
             return View(reg);
 
-        }*/
+        }
     } 
     
 }
