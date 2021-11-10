@@ -159,7 +159,7 @@ codigoCat int references categorias,
 stock smallint not null,
 precio decimal(6,2) not null,
 estado tinyint default 1,
-rutaImg varchar(150) not null,
+rutaImg varchar(150)null,
 constraint pk_productoID primary key clustered (codigoProd)
 )
 GO
@@ -189,7 +189,6 @@ go
 /*PROCEDIMIENTOS ALMACENADOS*/
 
 CREATE OR ALTER PROC sp_insertProduct
-@codigo varchar,
 @nombre varchar(100),
 @descripcion varchar(100),
 @idCat int,
@@ -200,9 +199,6 @@ AS
 INSERT INTO productos (nombre,descripcion,codigoCat,stock,precio,rutaImg) VALUES(@nombre,@descripcion,@idCat,@stock,@precio,@imagen)
 GO
 
-exec sp_listProduct ("guitarra","asdas",1,1,123,"asdas")
-go
-go
 CREATE OR ALTER PROC sp_updateProduct
 @nombre varchar(100),
 @descripcion varchar(100),
@@ -231,5 +227,3 @@ AS
 SELECT * FROM categorias
 go
 
-exec sp_listCategoria
-go
