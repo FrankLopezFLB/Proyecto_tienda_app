@@ -1,6 +1,5 @@
 USE Master
 GO
-
 IF EXISTS (SELECT
     *
   FROM sys.databases
@@ -9,6 +8,7 @@ BEGIN
   DROP DATABASE MusicStore
 END
 GO
+
 
 CREATE DATABASE MusicStore
 GO
@@ -153,18 +153,20 @@ INSERT INTO categorias VALUES(3,'Baterías')
 INSERT INTO categorias VALUES(4,'Accesorios')
 INSERT INTO categorias VALUES(5,'Sintetizadores')
 INSERT INTO categorias VALUES(6,'Servicios')
+Go
 
 CREATE TABLE productos
 (
 codigoProd int IDENTITY(1000,1) not null,
 nombre varchar(100) not null,
 descripcion varchar(100) not null,
-codigoCat int references categorias,
-stock smallint not null,
+codCat int,
+stock int not null,
 precio decimal(6,2) not null,
-estado tinyint default 1,
-rutaImg varchar(150) not null,
-constraint pk_productoID primary key clustered (codigoProd)
+estado int default 1,
+rutaImg varchar(255),
+constraint pk_productoID primary key clustered (codigoProd),
+constraint fk_cat foreign key (codCat) references categorias(codigoCat)
 )
 GO
 
@@ -194,15 +196,15 @@ go
 /*PROCEDIMIENTOS ALMACENADOS*/
 
 CREATE OR ALTER PROC sp_insertProduct
-@codigo varchar,
 @nombre varchar(100),
 @descripcion varchar(100),
 @idCat int,
 @stock int,
 @precio decimal(6,2),
-@imagen varchar(150)
+@estado tinyint = 1,
+@imagen varchar(255)
 AS
-INSERT INTO productos (nombre,descripcion,codigoCat,stock,precio,rutaImg) VALUES(@nombre,@descripcion,@idCat,@stock,@precio,@imagen)
+INSERT INTO productos VALUES(@nombre,@descripcion,@idCat,@stock,@precio,@estado,@imagen)
 GO
 
 CREATE OR ALTER PROC sp_updateProduct
@@ -212,9 +214,9 @@ CREATE OR ALTER PROC sp_updateProduct
 @stock int,
 @precio decimal(6,2),
 @codigo int,
-@imagen varchar(150)
+@imagen varchar(255)
 AS
-UPDATE productos SET nombre=@nombre, @descripcion=@descripcion, codigoCat=@idCat, stock=@stock, precio=@precio, rutaImg=@imagen where codigoProd=@codigo
+UPDATE productos SET nombre=@nombre, @descripcion=@descripcion, codCat=@idCat, stock=@stock, precio=@precio, rutaImg=@imagen where codigoProd=@codigo
 GO
 
 CREATE OR ALTER PROC sp_deleteProduct
@@ -251,4 +253,16 @@ AS
 GO
 
 exec sp_listProduct
+go
+
+exec sp_insertProduct @nombre='Fender',@descripcion='Stratocaster',@idCat=1,@stock=2,@precio=700,@imagen='~/IMAGENES/payaso.jpg'
+go
+
+delete  productos where codigoProd=1002
+go
+
+exec sp_deleteProduct @codigo=1000
+go
+
+select*from productos
 go

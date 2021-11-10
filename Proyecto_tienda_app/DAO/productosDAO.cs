@@ -12,7 +12,7 @@ namespace Proyecto_tienda_app.DAO
     public class productosDAO
     {
         
-        public IEnumerable<Producto> listado()
+       public IEnumerable<Producto> listado()
 
         {
             
@@ -51,7 +51,7 @@ namespace Proyecto_tienda_app.DAO
 
             return temporal;
         }
-        public IEnumerable<Producto> listado(string SP, SqlParameter[] pars = null)
+      /*  public IEnumerable<Producto> listado(string SP, SqlParameter[] pars = null)
 
         {
             conexionDAO cn = new conexionDAO();
@@ -98,7 +98,7 @@ namespace Proyecto_tienda_app.DAO
 
             return temporal;
 
-        }
+        }*/
 
 
         public Producto Buscar(int id)
