@@ -11,6 +11,7 @@ namespace Proyecto_tienda_app.DAO
 {
     public class productosDAO
     {
+
         conexionDAO cn = new conexionDAO();
 
         public IEnumerable<Producto> listado()
@@ -38,11 +39,14 @@ namespace Proyecto_tienda_app.DAO
                     { codigo = dr.GetInt32(0),
                         nombre = dr.GetString(1),
                         descripcion = dr.GetString(2),
-                        idcategoria = dr.GetInt32(3),
-                        stock = dr.GetInt32(4),
-                        precio = dr.GetDecimal(5),
-                        estado = dr.GetInt32(6),
-                        rutaimg=dr.GetString(7) });
+
+                        nomcategoria = dr.GetString(3),
+                        idcategoria=dr.GetInt32(4),
+                        stock = dr.GetInt32(5),
+                        precio = dr.GetDecimal(6), 
+                        estado = dr.GetInt32(7),
+                        rutaimg=dr.GetString(8) });
+
 
                 }
 
@@ -52,6 +56,55 @@ namespace Proyecto_tienda_app.DAO
 
             return temporal;
         }
+      /*  public IEnumerable<Producto> listado(string SP, SqlParameter[] pars = null)
+
+        {
+            conexionDAO cn = new conexionDAO();
+            List<Producto> temporal = new List<Producto>();
+
+            using (cn.getcn)
+
+            {
+
+                SqlCommand cmd = new SqlCommand(SP, cn.getcn);
+
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                if (pars != null) cmd.Parameters.AddRange(pars.ToArray());
+
+                cn.getcn.Open();
+
+                SqlDataReader dr = cmd.ExecuteReader();
+
+                while (dr.Read())
+
+                {
+
+                    temporal.Add(new Producto()
+
+                    {
+                        codigo = (int)dr[0] ,
+                        nombre = (string)dr[1],
+                        descripcion = (string)dr[2],
+                        idcategoria = (int)dr[3],
+                        stock = (int)dr[4],
+                        precio = (decimal)dr[5],
+                        estado = (int)dr[6],
+                        rutaimg = (string)dr[7]
+
+
+                    });
+
+                }
+
+                dr.Close(); cn.getcn.Close();
+
+            }
+
+            return temporal;
+
+        }*/
+
 
         public Producto Buscar(int id)
         {

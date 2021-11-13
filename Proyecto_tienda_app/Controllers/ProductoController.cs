@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -18,8 +18,9 @@ namespace Proyecto_tienda_app.Controllers
         public ActionResult Index(int id = 0)
         {
             //buscar
-            Producto reg = productos.Buscar(id);
-            if (reg == null) reg = new Producto();
+           Producto reg = productos.Buscar(id);
+           if (reg == null) reg = new Producto();
+            //Producto reg = (id == 0 ? new Producto() : productos.Buscar(id));
             //categorias
             ViewBag.categorias = new SelectList(categorias.listado(), "codigo", "nombre", reg.idcategoria);
             //productos
@@ -27,8 +28,8 @@ namespace Proyecto_tienda_app.Controllers
 
             return View(reg);
         }
-       [HttpPost]
-        public ActionResult Index(string btncrud, Producto reg)
+      [HttpPost]
+        public ActionResult Index(string btncrud, Producto reg, HttpPostedFileBase archivo)
 
         {
 
@@ -36,9 +37,9 @@ namespace Proyecto_tienda_app.Controllers
 
             {
 
-                case "Create": return Agregar(reg,null);
+                case "Create": return Agregar(reg,archivo);
 
-                case "Edit": return Actualizar(reg,null);
+                case "Edit": return Actualizar(reg,archivo);
 
                 case "Delete": return Eliminar(reg);
 
@@ -75,6 +76,7 @@ namespace Proyecto_tienda_app.Controllers
             SqlParameter[] pars =
 
              {
+        new SqlParameter(){ParameterName="@codigo",Value=reg.codigo},
 
         new SqlParameter(){ParameterName="@nombre",Value=reg.nombre},
 
@@ -85,6 +87,8 @@ namespace Proyecto_tienda_app.Controllers
         new SqlParameter(){ParameterName="@stock",Value=reg.stock},
 
         new SqlParameter(){ParameterName="@precio",Value=reg.precio},
+
+        new SqlParameter(){ParameterName="@estado",Value=1},
 
         new SqlParameter(){ParameterName="@imagen",Value=ruta}
 
@@ -140,6 +144,8 @@ namespace Proyecto_tienda_app.Controllers
 
                 new SqlParameter(){ParameterName="@precio",Value=reg.precio},
 
+                new SqlParameter(){ParameterName="@estado",Value=1},
+
                 new SqlParameter(){ParameterName="@imagen",Value=ruta}
 
       };
@@ -182,6 +188,6 @@ namespace Proyecto_tienda_app.Controllers
             return View(reg);
 
         }
-    }
-
+    } 
+    
 }

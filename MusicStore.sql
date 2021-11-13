@@ -1,6 +1,5 @@
 USE Master
 GO
-
 IF EXISTS (SELECT
     *
   FROM sys.databases
@@ -9,6 +8,7 @@ BEGIN
   DROP DATABASE MusicStore
 END
 GO
+
 
 CREATE DATABASE MusicStore
 GO
@@ -153,20 +153,24 @@ INSERT INTO categorias VALUES(3,'Baterías')
 INSERT INTO categorias VALUES(4,'Accesorios')
 INSERT INTO categorias VALUES(5,'Sintetizadores')
 INSERT INTO categorias VALUES(6,'Servicios')
+Go
 
 CREATE TABLE productos
 (
-codigoProd int IDENTITY(1000,1) not null,
+codigoProd int not null,
 nombre varchar(100) not null,
 descripcion varchar(100) not null,
-codigoCat int references categorias,
-stock smallint not null,
+codigoCat int,
+stock int not null,
 precio decimal(6,2) not null,
-estado tinyint default 1,
-rutaImg varchar(150) not null,
+estado int default 1,
+rutaImg varchar(255),
 constraint pk_productoID primary key clustered (codigoProd)
 )
 GO
+
+alter table productos add constraint fk_cat foreign key (codigoCat) references categorias(codigoCat)
+go
 
 /*CABECERA DE BOLETA*/
 CREATE TABLE boleta
@@ -194,15 +198,16 @@ go
 /*PROCEDIMIENTOS ALMACENADOS*/
 
 CREATE OR ALTER PROC sp_insertProduct
-@codigo varchar,
+@codigo int,
 @nombre varchar(100),
 @descripcion varchar(100),
 @idCat int,
 @stock int,
 @precio decimal(6,2),
-@imagen varchar(150)
+@estado tinyint = 1,
+@imagen varchar(255)
 AS
-INSERT INTO productos (nombre,descripcion,codigoCat,stock,precio,rutaImg) VALUES(@nombre,@descripcion,@idCat,@stock,@precio,@imagen)
+INSERT INTO productos VALUES(@codigo,@nombre,@descripcion,@idCat,@stock,@precio,@estado,@imagen)
 GO
 
 CREATE OR ALTER PROC sp_updateProduct
@@ -211,10 +216,11 @@ CREATE OR ALTER PROC sp_updateProduct
 @idCat int,
 @stock int,
 @precio decimal(6,2),
+@estado int,
 @codigo int,
-@imagen varchar(150)
+@imagen varchar(255)
 AS
-UPDATE productos SET nombre=@nombre, @descripcion=@descripcion, codigoCat=@idCat, stock=@stock, precio=@precio, rutaImg=@imagen where codigoProd=@codigo
+UPDATE productos SET nombre=@nombre, descripcion=@descripcion, codigoCat=@idCat, stock=@stock, precio=@precio, estado=@estado,rutaImg=@imagen where codigoProd=@codigo
 GO
 
 CREATE OR ALTER PROC sp_deleteProduct
@@ -225,7 +231,9 @@ GO
 
 CREATE OR ALTER PROC sp_listProduct
 AS
-SELECT * FROM productos WHERE estado = 1
+SELECT codigoProd,p.nombre, descripcion,c.nombre,p.codigoCat,stock,precio,estado,rutaImg 
+FROM productos p join categorias  c on p.codigoCat=c.codigoCat  
+WHERE estado = 1
 GO
 
 CREATE OR ALTER PROC sp_listCategoria
@@ -249,3 +257,20 @@ AS
     ON d.codigoProd = p.codigoProd
   WHERE d.codigoBol = @codigoBol
 GO
+
+
+exec sp_listProduct
+go
+
+exec sp_insertProduct @codigo=3, @nombre='Fender',@descripcion='Stratocaster',@idCat=2,@stock=2,@precio=700,@imagen='~/IMAGENES/payaso.jpg'
+go
+
+delete  productos where codigoProd=1
+go
+
+exec sp_deleteProduct @codigo=1
+go
+
+select*from productos
+go
+

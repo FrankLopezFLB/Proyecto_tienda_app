@@ -1,13 +1,13 @@
 ﻿@model Proyecto_tienda_app.Models.Producto
 @using Proyecto_tienda_app.Models
 @{
-    ViewBag.Title = "CreateProducto";
+    ViewBag.Title = "Agregar";
 }
 
-<h2>PRODUCTOS</h2>
+<h2>Agregar</h2>
 
 
-@using (Html.BeginForm("Index", "Producto", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Agregar", "Producto", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -80,7 +80,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                @Html.ActionLink("Limpiar", "Index", new { id = -1 }, new { @class = "btn btn-default" })
+                @Html.ActionLink("Limpiar", "Agregar", new { id = -1 }, new { @class = "btn btn-default" })
                 <input type="submit" name="btncrud" value="Create" class="btn btn-default" />
                 <input type="submit" name="btncrud" value="Edit" class="btn btn-default" />
                 <input type="submit" name="btncrud" value="Delete" class="btn btn-default" />
@@ -92,12 +92,10 @@
 <div>
     @ViewBag.mensaje
 </div>
-
-
 <div>
     @Html.Partial("_VistaProducto", ViewBag.productos as IEnumerable<Producto>)
 </div>
 
-@section Scripts{
+@section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
