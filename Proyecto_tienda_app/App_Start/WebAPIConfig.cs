@@ -11,7 +11,7 @@ namespace Proyecto_tienda_app.App_Start
         public static void Register(HttpConfiguration config)
         {
             // Configuración y servicios de API web
-            config.EnableCors(); // ASP NET cors y web api cors
+            //config.EnableCors(); // ASP NET cors y web api cors
 
             // Rutas de API web
             config.MapHttpAttributeRoutes();
