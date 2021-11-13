@@ -216,10 +216,11 @@ CREATE OR ALTER PROC sp_updateProduct
 @idCat int,
 @stock int,
 @precio decimal(6,2),
+@estado int,
 @codigo int,
 @imagen varchar(255)
 AS
-UPDATE productos SET nombre=@nombre, descripcion=@descripcion, codigoCat=@idCat, stock=@stock, precio=@precio, rutaImg=@imagen where codigoProd=@codigo
+UPDATE productos SET nombre=@nombre, descripcion=@descripcion, codigoCat=@idCat, stock=@stock, precio=@precio, estado=@estado,rutaImg=@imagen where codigoProd=@codigo
 GO
 
 CREATE OR ALTER PROC sp_deleteProduct
@@ -260,7 +261,7 @@ GO
 exec sp_listProduct
 go
 
-exec sp_insertProduct @codigo=2, @nombre='Fender',@descripcion='Stratocaster',@idCat=2,@stock=2,@precio=700,@imagen='~/IMAGENES/payaso.jpg'
+exec sp_insertProduct @codigo=3, @nombre='Fender',@descripcion='Stratocaster',@idCat=2,@stock=2,@precio=700,@imagen='~/IMAGENES/payaso.jpg'
 go
 
 delete  productos where codigoProd=1

@@ -39,7 +39,7 @@ namespace Proyecto_tienda_app.Controllers
 
                 case "Create": return Agregar(reg,archivo);
 
-                case "Edit": return Actualizar(reg,null);
+                case "Edit": return Actualizar(reg,archivo);
 
                 case "Delete": return Eliminar(reg);
 
