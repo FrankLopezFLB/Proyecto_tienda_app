@@ -14,7 +14,11 @@
         <th>
             @Html.DisplayNameFor(model => model.nomcategoria)
         </th>
-  
+
+        <th>
+            @Html.DisplayNameFor(model => model.idcategoria)
+        </th>
+
         <th>
             @Html.DisplayNameFor(model => model.stock)
         </th>
@@ -43,6 +47,10 @@
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.nomcategoria)
+    </td>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.idcategoria)
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.stock)

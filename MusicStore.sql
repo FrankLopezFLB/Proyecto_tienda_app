@@ -230,8 +230,8 @@ GO
 
 CREATE OR ALTER PROC sp_listProduct
 AS
-SELECT codigoProd,p.nombre, descripcion,c.nombre,stock,precio,estado,rutaImg 
-FROM productos p join categorias  c on p.codigoCat=c.codigoCat
+SELECT codigoProd,p.nombre, descripcion,c.nombre,p.codigoCat,stock,precio,estado,rutaImg 
+FROM productos p join categorias  c on p.codigoCat=c.codigoCat  
 WHERE estado = 1
 GO
 
