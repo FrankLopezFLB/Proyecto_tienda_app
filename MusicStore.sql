@@ -258,6 +258,7 @@ AS
   WHERE d.codigoBol = @codigoBol
 GO
 
+
 exec sp_listProduct
 go
 
@@ -272,3 +273,4 @@ go
 
 select*from productos
 go
+
