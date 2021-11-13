@@ -15,5 +15,7 @@ namespace Proyecto_tienda_app.Models
         public decimal precio { get; set; }
         public int estado { get; set; }
         public string rutaimg { get; set; }
+
+        public string nomcategoria { get; set; }
     }
 }

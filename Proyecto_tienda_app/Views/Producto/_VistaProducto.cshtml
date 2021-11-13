@@ -12,8 +12,9 @@
             @Html.DisplayNameFor(model => model.descripcion)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.idcategoria)
+            @Html.DisplayNameFor(model => model.nomcategoria)
         </th>
+  
         <th>
             @Html.DisplayNameFor(model => model.stock)
         </th>
@@ -41,7 +42,7 @@
         @Html.DisplayFor(modelItem => item.descripcion)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.idcategoria)
+        @Html.DisplayFor(modelItem => item.nomcategoria)
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.stock)
@@ -53,11 +54,11 @@
         @Html.DisplayFor(modelItem => item.estado)
     </td>
     <td>
-        <img src="@Url.Content(item.rutaimg)" style="width:40px; height:40px"/>
+        <img src="@Url.Content(item.rutaimg)" style="width:40px; height:40px" />
     </td>
     <td>
-    
-        @Html.ActionLink("Seleccionar","Index", new {id=item.codigo})
+
+        @Html.ActionLink("Seleccionar", "Index", new { id = item.codigo })
     </td>
 </tr>
 }

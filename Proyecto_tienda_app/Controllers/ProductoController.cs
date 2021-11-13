@@ -29,7 +29,7 @@ namespace Proyecto_tienda_app.Controllers
             return View(reg);
         }
       [HttpPost]
-        public ActionResult Index(string btncrud, Producto reg)
+        public ActionResult Index(string btncrud, Producto reg, HttpPostedFileBase archivo)
 
         {
 
@@ -37,7 +37,7 @@ namespace Proyecto_tienda_app.Controllers
 
             {
 
-                case "Create": return Agregar(reg,null);
+                case "Create": return Agregar(reg,archivo);
 
                 case "Edit": return Actualizar(reg,null);
 
@@ -76,6 +76,7 @@ namespace Proyecto_tienda_app.Controllers
             SqlParameter[] pars =
 
              {
+        new SqlParameter(){ParameterName="@codigo",Value=reg.codigo},
 
         new SqlParameter(){ParameterName="@nombre",Value=reg.nombre},
 
@@ -86,6 +87,8 @@ namespace Proyecto_tienda_app.Controllers
         new SqlParameter(){ParameterName="@stock",Value=reg.stock},
 
         new SqlParameter(){ParameterName="@precio",Value=reg.precio},
+
+        new SqlParameter(){ParameterName="@estado",Value=1},
 
         new SqlParameter(){ParameterName="@imagen",Value=ruta}
 
@@ -140,6 +143,8 @@ namespace Proyecto_tienda_app.Controllers
                 new SqlParameter(){ParameterName="@stock",Value=reg.stock},
 
                 new SqlParameter(){ParameterName="@precio",Value=reg.precio},
+
+                new SqlParameter(){ParameterName="@estado",Value=1},
 
                 new SqlParameter(){ParameterName="@imagen",Value=ruta}
 

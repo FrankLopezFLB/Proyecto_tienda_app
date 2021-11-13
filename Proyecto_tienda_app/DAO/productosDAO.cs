@@ -37,7 +37,7 @@ namespace Proyecto_tienda_app.DAO
                     { codigo = dr.GetInt32(0),
                         nombre = dr.GetString(1),
                         descripcion = dr.GetString(2),
-                        idcategoria = dr.GetInt32(3),
+                        nomcategoria = dr.GetString(3),
                         stock = dr.GetInt32(4),
                         precio = dr.GetDecimal(5), 
                         estado = dr.GetInt32(6),

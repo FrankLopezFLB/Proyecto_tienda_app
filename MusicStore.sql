@@ -157,18 +157,20 @@ Go
 
 CREATE TABLE productos
 (
-codigoProd int IDENTITY(1000,1) not null,
+codigoProd int not null,
 nombre varchar(100) not null,
 descripcion varchar(100) not null,
-codCat int,
+codigoCat int,
 stock int not null,
 precio decimal(6,2) not null,
 estado int default 1,
 rutaImg varchar(255),
-constraint pk_productoID primary key clustered (codigoProd),
-constraint fk_cat foreign key (codCat) references categorias(codigoCat)
+constraint pk_productoID primary key clustered (codigoProd)
 )
 GO
+
+alter table productos add constraint fk_cat foreign key (codigoCat) references categorias(codigoCat)
+go
 
 /*CABECERA DE BOLETA*/
 CREATE TABLE boleta
@@ -196,6 +198,7 @@ go
 /*PROCEDIMIENTOS ALMACENADOS*/
 
 CREATE OR ALTER PROC sp_insertProduct
+@codigo int,
 @nombre varchar(100),
 @descripcion varchar(100),
 @idCat int,
@@ -204,7 +207,7 @@ CREATE OR ALTER PROC sp_insertProduct
 @estado tinyint = 1,
 @imagen varchar(255)
 AS
-INSERT INTO productos VALUES(@nombre,@descripcion,@idCat,@stock,@precio,@estado,@imagen)
+INSERT INTO productos VALUES(@codigo,@nombre,@descripcion,@idCat,@stock,@precio,@estado,@imagen)
 GO
 
 CREATE OR ALTER PROC sp_updateProduct
@@ -216,7 +219,7 @@ CREATE OR ALTER PROC sp_updateProduct
 @codigo int,
 @imagen varchar(255)
 AS
-UPDATE productos SET nombre=@nombre, @descripcion=@descripcion, codCat=@idCat, stock=@stock, precio=@precio, rutaImg=@imagen where codigoProd=@codigo
+UPDATE productos SET nombre=@nombre, descripcion=@descripcion, codigoCat=@idCat, stock=@stock, precio=@precio, rutaImg=@imagen where codigoProd=@codigo
 GO
 
 CREATE OR ALTER PROC sp_deleteProduct
@@ -227,7 +230,9 @@ GO
 
 CREATE OR ALTER PROC sp_listProduct
 AS
-SELECT * FROM productos WHERE estado = 1
+SELECT codigoProd,p.nombre, descripcion,c.nombre,stock,precio,estado,rutaImg 
+FROM productos p join categorias  c on p.codigoCat=c.codigoCat
+WHERE estado = 1
 GO
 
 CREATE OR ALTER PROC sp_listCategoria
@@ -255,13 +260,13 @@ GO
 exec sp_listProduct
 go
 
-exec sp_insertProduct @nombre='Fender',@descripcion='Stratocaster',@idCat=1,@stock=2,@precio=700,@imagen='~/IMAGENES/payaso.jpg'
+exec sp_insertProduct @codigo=2, @nombre='Fender',@descripcion='Stratocaster',@idCat=2,@stock=2,@precio=700,@imagen='~/IMAGENES/payaso.jpg'
 go
 
-delete  productos where codigoProd=1002
+delete  productos where codigoProd=1
 go
 
-exec sp_deleteProduct @codigo=1000
+exec sp_deleteProduct @codigo=1
 go
 
 select*from productos
