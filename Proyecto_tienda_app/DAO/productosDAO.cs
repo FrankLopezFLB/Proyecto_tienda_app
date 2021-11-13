@@ -11,13 +11,15 @@ namespace Proyecto_tienda_app.DAO
 {
     public class productosDAO
     {
-        
-       public IEnumerable<Producto> listado()
+
+        conexionDAO cn = new conexionDAO();
+
+        public IEnumerable<Producto> listado()
 
         {
-            
+
             List<Producto> temporal = new List<Producto>();
-            conexionDAO cn = new conexionDAO();
+            cn = new conexionDAO();
             using (cn.getcn)
 
             {
@@ -37,12 +39,14 @@ namespace Proyecto_tienda_app.DAO
                     { codigo = dr.GetInt32(0),
                         nombre = dr.GetString(1),
                         descripcion = dr.GetString(2),
+
                         nomcategoria = dr.GetString(3),
                         idcategoria=dr.GetInt32(4),
                         stock = dr.GetInt32(5),
                         precio = dr.GetDecimal(6), 
                         estado = dr.GetInt32(7),
                         rutaimg=dr.GetString(8) });
+
 
                 }
 
@@ -119,7 +123,7 @@ namespace Proyecto_tienda_app.DAO
                 cmd.CommandType = CommandType.StoredProcedure;
                 if (pars != null) cmd.Parameters.AddRange(pars.ToArray());
                 cn.getcn.Open();
-                int c = cmd.ExecuteNonQuery();// retorna la cantidad de afectados 
+                int c = cmd.ExecuteNonQuery();// retorna la cantidad de afectados
                 if (op == 1) mensaje = c + "registro agregado";
                 else if (op == 2) mensaje = c + "registro actualizado";
                 else if (op == 3) mensaje = c + "registro eliminado";
