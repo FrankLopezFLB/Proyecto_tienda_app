@@ -16,19 +16,6 @@ GO
 USE MusicStore
 GO
 
-CREATE TABLE cliente (
-  codigo int IDENTITY (1, 1) NOT NULL,
-  nombre varchar(25) NOT NULL,
-  apellido varchar(25) NOT NULL,
-  telefono char(9) NULL,
-  direccion varchar(200) NULL,
-  email varchar(100) NULL UNIQUE,
-  clave varchar(150) NOT NULL,
-  estado INT NOT NULL DEFAULT 1
-  CONSTRAINT pk_registroClienteID PRIMARY KEY CLUSTERED (codigo)
-)
-GO
-
 CREATE TABLE puestos (
   id int NOT NULL PRIMARY KEY,
   nombre varchar(20) NOT NULL
@@ -36,13 +23,11 @@ CREATE TABLE puestos (
 GO
 
 INSERT INTO puestos
-  VALUES (1, 'Adminstrador')
+  VALUES (1, 'Trabajador')
 INSERT INTO puestos
-  VALUES (2, 'Asistente de ventas')
-INSERT INTO puestos
-  VALUES (3, 'Jefe de ventas')
+  VALUES (2, 'Cliente')
 
-CREATE TABLE trabajador (
+CREATE TABLE usuarios (
   codigo int IDENTITY (1, 1) NOT NULL,
   nombre varchar(25) NOT NULL,
   apellido varchar(25) NOT NULL,
@@ -51,8 +36,8 @@ CREATE TABLE trabajador (
   email varchar(100) NULL UNIQUE,
   clave varchar(150) NOT NULL,  
   dni char(8) NOT NULL UNIQUE,
-  id int REFERENCES puestos,
   estado INT NOT NULL DEFAULT 1,
+  id int not null references puestos default 2,
   CONSTRAINT pk_registroTrabajadorID PRIMARY KEY CLUSTERED (codigo)
 )
 GO
@@ -133,10 +118,8 @@ CREATE TABLE direccionEnvio (
   referencia varchar(200) NOT NULL,
   id int REFERENCES distrito,
   codigoPostal char(5) NOT NULL,
-  codigoCliente int not null,
-	
-  CONSTRAINT pk_direcionEnvioID PRIMARY KEY CLUSTERED (codigoEnvio),
-  constraint fk_envioCliente foreign key(codigoCliente) references cliente(codigo)
+  codigo int not null references usuarios,	
+  CONSTRAINT pk_direcionEnvioID PRIMARY KEY CLUSTERED (codigoEnvio)
 )
 GO
 
@@ -178,9 +161,8 @@ CREATE TABLE boleta
 codigoBol int identity(10000,1) not null,
 precioTotal decimal(10,2) not null,
 fecha date not null,
-codigoCliente int not null,
-constraint pk_boletaID primary key clustered (codigoBol),
-constraint fk_boletaCliente foreign key(codigoCliente) references cliente(codigo)
+codigo int not null references usuarios,	
+constraint pk_boletaID primary key clustered (codigoBol)
 )
 go
 
@@ -258,19 +240,33 @@ AS
   WHERE d.codigoBol = @codigoBol
 GO
 
-
-exec sp_listProduct
+--Procedures de creación, modificación, ingreso y eliminación de un usuario
+create or alter proc sp_createUser
+@nombre varchar(25),
+@apellido varchar(25),
+@telefono char(9),
+@direccion varchar(100),
+@email varchar(100),
+@clave varchar(150),
+@dni char(8)
+as
+	begin
+		if not exists(select * from usuarios where dni=@dni)
+		insert into usuarios (nombre,apellido,telefono,direccion,email,clave,dni,estado,id)
+		values(@nombre,@apellido,@telefono,@direccion,@email,@clave,@dni,DEFAULT,DEFAULT)
+		else
+		print 'Usuario con DNI ingresado ya existe'
+	end
 go
 
-exec sp_insertProduct @codigo=3, @nombre='Fender',@descripcion='Stratocaster',@idCat=2,@stock=2,@precio=700,@imagen='~/IMAGENES/payaso.jpg'
+create or alter proc sp_login
+@email varchar(100),
+@clave varchar(150)
+as
+	begin
+		if exists(select * from usuarios where email = @email and clave = @clave and id<> 1)
+			select * from usuarios where id= 2
+		else
+			select * from usuarios where id = 1
+	end
 go
-
-delete  productos where codigoProd=1
-go
-
-exec sp_deleteProduct @codigo=1
-go
-
-select*from productos
-go
-
