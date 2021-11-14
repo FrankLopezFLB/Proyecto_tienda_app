@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "Aviso";
+}
+
+<style>
+    h1, h2 {
+        text-align: center;
+    }
+</style>
+
+<h1>Aviso</h1>
+<h2>@ViewBag.MENSAJE</h2>
+
+<div>
+    @Html.ActionLink("Ir a la tienda", "Tienda", null, new { @class = "btn btn-primary" })
+</div>
+
