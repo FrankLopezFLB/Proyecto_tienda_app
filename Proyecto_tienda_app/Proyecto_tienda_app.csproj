@@ -137,27 +137,24 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CategoriasRestController.cs" />
-    <Compile Include="Controllers\ClienteController.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
     <Compile Include="DAO\boletaDAO.cs" />
     <Compile Include="DAO\categoriaDAO.cs" />
-    <Compile Include="DAO\clienteDAO.cs" />
     <Compile Include="DAO\conexionDAO.cs" />
     <Compile Include="DAO\productosDAO.cs" />
     <Compile Include="DAO\PuestoDAO.cs" />
-    <Compile Include="DAO\trabajadorDAO.cs" />
+    <Compile Include="DAO\usuarioDAO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Boleta.cs" />
     <Compile Include="Models\Categoria.cs" />
-    <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\DetalleBoleta.cs" />
     <Compile Include="Models\DetalleBoletaProducto.cs" />
     <Compile Include="Models\Puesto.cs" />
     <Compile Include="Models\Response.cs" />
-    <Compile Include="Models\Trabajador.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Models\Producto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -206,6 +203,8 @@
     <Folder Include="App_Data\" />
     <Folder Include="IMAGENES\" />
     <Folder Include="Views\Cliente\" />
+    <Folder Include="Views\Login\" />
+    <Folder Include="Views\Usuario\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
