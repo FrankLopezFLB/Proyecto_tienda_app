@@ -270,3 +270,36 @@ as
 			select * from usuarios where id = 1
 	end
 go
+
+CREATE OR ALTER PROC sp_generar_boleta
+ @precioTotal decimal(10,2),
+ @codigoCliente int,
+ @n int output
+AS
+BEGIN
+ INSERT boleta(precioTotal, fecha, codigo)
+   VALUES (@precioTotal, GETDATE(), @codigoCliente)
+
+ SELECT @n = SCOPE_IDENTITY()
+
+ RETURN @n
+END
+GO
+
+CREATE OR ALTER PROC sp_agregar_detalle_boleta
+ @codigoBol INT,
+ @codigoProd INT,
+ @importe DECIMAL(10,2),
+ @cantidad INT
+AS
+BEGIN
+	INSERT INTO detalleBoleta VALUES 
+	  (@codigoBol, @codigoProd, @importe, @cantidad)
+
+	UPDATE productos
+		SET stock -= @cantidad
+	WHERE codigoProd = @codigoProd
+END
+GO
+
+EXEC sp_createUser 'Jose', 'Robles', '912501429', 'Prueba', 'jose@gmail.com', '12345', '75496174'

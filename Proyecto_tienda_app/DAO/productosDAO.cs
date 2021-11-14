@@ -43,7 +43,7 @@ namespace Proyecto_tienda_app.DAO
                         nomcategoria = dr.GetString(3),
                         idcategoria=dr.GetInt32(4),
                         stock = dr.GetInt32(5),
-                        precio = dr.GetDecimal(6), 
+                        precio = dr.GetDecimal(6),
                         estado = dr.GetInt32(7),
                         rutaimg=dr.GetString(8) });
 
@@ -105,6 +105,12 @@ namespace Proyecto_tienda_app.DAO
 
         }*/
 
+
+        public IEnumerable<Producto> Filtro(string nombre)
+        {
+            return listado().Where(p => p.nombre.StartsWith(nombre,
+                StringComparison.CurrentCultureIgnoreCase));
+        }
 
         public Producto Buscar(int id)
         {

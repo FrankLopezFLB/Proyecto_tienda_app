@@ -1,0 +1,79 @@
+﻿@model Proyecto_tienda_app.Models.Producto
+
+@{
+    ViewBag.Title = "Seleccionar";
+}
+
+<h2>Producto Seleccionado</h2>
+
+<div class="row">
+    <div class="col-sm-8">
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.codigo)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.codigo)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.nombre)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.nombre)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.precio)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.precio)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.stock)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.stock)
+            </dd>
+
+        </dl>
+    </div>
+    <div class="col-sm-4">
+        <img class="img-producto" src="@Url.Content($"~/IMAGENES/{@Html.DisplayFor(model => model.codigo)}.jpg")" alt="@Html.DisplayFor(model => model.nombre)">
+    </div>
+</div>
+
+
+<div style="margin-top: 0.5rem">
+    @using (Html.BeginForm())
+    {
+        @Html.Hidden("codigo", Model.codigo)
+        <div>
+            <em>Ingrese la Cantidad</em>
+            @Html.TextBox("cantidad", 1, new { type = "number", min = 1, max = Model.stock })
+        </div>
+        <div style="margin-top: 0.5rem">
+            <input type="submit" value="Agregar" class="btn btn-default" disabled="@ViewBag.d" /> |
+            @Html.ActionLink("Retornar", "Tienda", new { nombre = "" }, new { @class = "btn btn-default" })
+        </div>
+    }
+</div>
+
+@if ((bool)ViewBag.d)
+{
+    <p>
+        @ViewBag.mensaje
+    </p>
+}
+
+@if ((bool)ViewBag.error)
+{
+    <div class="alert alert-danger" style="margin-top:0.5rem">
+        @ViewBag.mensaje
+    </div>
+}

@@ -1,0 +1,94 @@
+﻿@model IEnumerable<Proyecto_tienda_app.Models.Producto>
+
+@{
+    ViewBag.Title = "Tienda";
+}
+
+<style>
+
+    .radius-01 {
+        border-radius: 1rem !important;
+        border: 1px solid black !important;
+    }
+
+    .productos-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+    }
+
+    .img-producto {
+        width: 100px;
+        height: 100px;
+    }
+
+    h2 {
+        text-align: center;
+    }
+
+    .buscar {
+        text-align: right
+    }
+</style>
+
+<h2>Tienda Virtual</h2>
+
+<div class="buscar">
+    @using (Html.BeginForm())
+    {
+        <em>Ingrese el Nombre</em>
+        @Html.TextBox("nombre", "")
+        <button>Buscar</button>
+    }
+</div>
+
+<div style="margin-bottom: 1rem">
+    @Html.ActionLink("Ir a la Canasta", "Carrito", null, new { @class = "btn btn-primary" }) |
+    @Html.ActionLink("Ir a Comprar", "Comprar", null, new { @class = "btn btn-primary" })
+</div>
+
+@if (Model.Count() != 0)
+{
+    <div class="productos-container">
+        @foreach (var item in Model)
+        {
+            <div class="thumbnail radius-01">
+                <div class="caption text-center">
+                    <table style="width:100%;margin-bottom:0.5rem">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <img class="img-producto" src="@Url.Content($"~/IMAGENES/{item.codigo}.jpg")" alt="@item.nombre">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>@item.codigo</td>
+                            </tr>
+                            <tr>
+                                <td>@item.nombre</td>
+                            </tr>
+                            <tr>
+                                <td>S/@item.precio</td>
+                            </tr>
+                            <tr>
+                                <td>@item.stock</td>
+                            </tr>
+                            @if (item.stock > 0)
+                            {
+                                <tr>
+                                    <td>@Html.ActionLink("Agregar al Carrito", "Seleccionar", new { id = item.codigo }, new { @class = "btn btn-primary", @style = "margin-top:0.3rem" })</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="alert alert-info">
+        @ViewBag.MENSAJE
+    </div>
+}
