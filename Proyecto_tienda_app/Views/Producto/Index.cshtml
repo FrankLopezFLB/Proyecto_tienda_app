@@ -4,21 +4,25 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
+<h2>Productos</h2>
+<style>
+    input[type="file"] {
+        display: none;
+    }
+</style>
 
 @using (Html.BeginForm("Index", "Producto", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
 <div class="form-horizontal">
-    <h4>Producto</h4>
+    <h4>Agregue o edite un producto</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <div class="form-group">
         @Html.LabelFor(model => model.codigo, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10" >
-            @Html.EditorFor(model => model.codigo, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.EditorFor(model => model.codigo, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
 
         </div>
     </div>
@@ -74,16 +78,19 @@
     <div class="form-group">
         @Html.LabelFor(model => model.rutaimg, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.TextBox("archivo", "", new { type = "file", accept = "image/*" })
+            <label class = "btn btn-default">
+                Seleccione imagen
+                @Html.TextBox("archivo", "", new { type = "file", accept = "image/*"})
+            </label>
         </div>
     </div>
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             @Html.ActionLink("Limpiar", "Index", new { id = -1 }, new { @class = "btn btn-default" })
-            <input type="submit" name="btncrud" value="Create" class="btn btn-default" />
-            <input type="submit" name="btncrud" value="Edit" class="btn btn-default" />
-            <input type="submit" name="btncrud" value="Delete" class="btn btn-default" />
+            <input type="submit" name="btncrud" value="Agregar" class="btn btn-success" />
+            <input type="submit" name="btncrud" value="Editar" class="btn btn-info" />
+            <input type="submit" name="btncrud" value="Eliminar" class="btn btn-danger" />
         </div>
     </div>
 </div>
