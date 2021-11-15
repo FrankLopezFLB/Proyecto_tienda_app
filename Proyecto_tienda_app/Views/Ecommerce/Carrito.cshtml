@@ -1,0 +1,81 @@
+﻿@model IEnumerable<Proyecto_tienda_app.Models.Item>
+
+@{
+    ViewBag.Title = "Carrito";
+    var listado = ViewBag.listado as List<Proyecto_tienda_app.Models.Producto>;
+}
+
+<h2>Resumen del Carrito</h2>
+
+<div style="margin-bottom:1.2rem">
+    @Html.ActionLink("Ir a Tienda", "Tienda", new { nombre = "" }, new { @class = "btn btn-danger" }) |
+    @Html.ActionLink("Ir a Comprar", "Comprar", null, new { @class = "btn btn-danger" })
+</div>
+
+@if (Model.Count() != 0)
+{
+    <div class="table-responsive text-nowrap">
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.codigo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.descripcion)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.precio)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.cantidad)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.monto)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.codigo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.descripcion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.precio)
+                    </td>
+                    @using (Html.BeginForm("Actualizar", "Ecommerce", FormMethod.Post))
+                    {
+                        @Html.Hidden("id", item.codigo)
+                        <td>
+                            @Html.TextBox("q", item.cantidad, new { type = "number", min = 1, max = listado.Find(p => p.codigo == item.codigo).stock })
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.monto)
+                        </td>
+                        <td>
+                            <input type="submit" value="Actualizar" class="btn btn-primary" /> |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.codigo }, new { @class = "btn btn-primary", @onclick = "return confirm('¿Desea Eliminar?')" })
+                        </td>
+                    }
+                </tr>
+            }
+            <tr>
+                <td colspan="4">Total del carrito</td>
+                <td>@Model.Sum(i => i.monto)</td>
+            </tr>
+
+        </table>
+    </div>
+
+}
+else
+{
+    <div class="alert alert-info">
+        No existen productos en el carrito
+    </div>
+}

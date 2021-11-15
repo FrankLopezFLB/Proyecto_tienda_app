@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Proyecto_tienda_app.Models
 {
-    public abstract class Usuario
+    public class Usuario
     {
         public int Codigo { get; set; }
         public string Nombre { get; set; }
@@ -14,7 +14,9 @@ namespace Proyecto_tienda_app.Models
         public string Direccion { get; set; }
         public string Email { get; set; }
         public string Clave { get; set; }
+        public string Dni { get; set; }
         public int Estado { get; set; }
+        public int puestoID { get; set; }
 
 
     }
