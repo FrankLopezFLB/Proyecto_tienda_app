@@ -137,13 +137,17 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CategoriasRestController.cs" />
+    <Compile Include="Controllers\EcommerceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="DAO\boletaDAO.cs" />
     <Compile Include="DAO\categoriaDAO.cs" />
     <Compile Include="DAO\conexionDAO.cs" />
     <Compile Include="DAO\productosDAO.cs" />
     <Compile Include="DAO\PuestoDAO.cs" />
+    <Compile Include="DAO\usuarioDAO.cs" />
+    <Compile Include="DAO\ventaDAO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -205,12 +209,12 @@
     <Content Include="Views\Ecommerce\Seleccionar.cshtml" />
     <Content Include="Views\Ecommerce\Carrito.cshtml" />
     <Content Include="Views\Ecommerce\Aviso.cshtml" />
+    <Content Include="Views\Usuario\Login.cshtml" />
+    <Content Include="Views\Usuario\Registrar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Cliente\" />
-    <Folder Include="Views\Login\" />
-    <Folder Include="Views\Usuario\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
