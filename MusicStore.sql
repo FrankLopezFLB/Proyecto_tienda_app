@@ -271,6 +271,7 @@ as
 	end
 go
 
+
 CREATE OR ALTER PROC sp_generar_boleta
  @precioTotal decimal(10,2),
  @codigoCliente int,
@@ -301,5 +302,3 @@ BEGIN
 	WHERE codigoProd = @codigoProd
 END
 GO
-
-EXEC sp_createUser 'Jose', 'Robles', '912501429', 'Prueba', 'jose@gmail.com', '12345', '75496174'
