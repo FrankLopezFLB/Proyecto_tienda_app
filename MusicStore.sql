@@ -157,7 +157,7 @@ Go
 
 CREATE TABLE productos
 (
-codigoProd int not null,
+codigoProd int IDENTITY (1000,1)not null,
 nombre varchar(100) not null,
 descripcion varchar(100) not null,
 codigoCat int,
@@ -198,7 +198,7 @@ go
 /*PROCEDIMIENTOS ALMACENADOS*/
 
 CREATE OR ALTER PROC sp_insertProduct
-@codigo int,
+
 @nombre varchar(100),
 @descripcion varchar(100),
 @idCat int,
@@ -207,7 +207,7 @@ CREATE OR ALTER PROC sp_insertProduct
 @estado tinyint = 1,
 @imagen varchar(255)
 AS
-INSERT INTO productos VALUES(@codigo,@nombre,@descripcion,@idCat,@stock,@precio,@estado,@imagen)
+INSERT INTO productos VALUES(@nombre,@descripcion,@idCat,@stock,@precio,@estado,@imagen)
 GO
 
 CREATE OR ALTER PROC sp_updateProduct
@@ -262,7 +262,7 @@ GO
 exec sp_listProduct
 go
 
-exec sp_insertProduct @codigo=3, @nombre='Fender',@descripcion='Stratocaster',@idCat=2,@stock=2,@precio=700,@imagen='~/IMAGENES/payaso.jpg'
+exec sp_insertProduct  @nombre='Fender',@descripcion='Stratocaster',@idCat=2,@stock=2,@precio=700,@imagen='~/IMAGENES/payaso.jpg'
 go
 
 delete  productos where codigoProd=1

@@ -3,33 +3,34 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.codigo)
+            Código
+           
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.nombre)
+            Nombre
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.descripcion)
+            Descripción
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.nomcategoria)
+            Categoría
         </th>
 
-        <th>
+        <th hidden>
             @Html.DisplayNameFor(model => model.idcategoria)
         </th>
 
         <th>
-            @Html.DisplayNameFor(model => model.stock)
+           Stock
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.precio)
+           Precio
         </th>
-        <th>
+        <th hidden>
             @Html.DisplayNameFor(model => model.estado)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.rutaimg)
+           Imagen
         </th>
         <th></th>
     </tr>
@@ -49,7 +50,7 @@
         @Html.DisplayFor(modelItem => item.nomcategoria)
     </td>
 
-    <td>
+    <td hidden>
         @Html.DisplayFor(modelItem => item.idcategoria)
     </td>
     <td>
@@ -58,7 +59,7 @@
     <td>
         @Html.DisplayFor(modelItem => item.precio)
     </td>
-    <td>
+    <td hidden>
         @Html.DisplayFor(modelItem => item.estado)
     </td>
     <td>
