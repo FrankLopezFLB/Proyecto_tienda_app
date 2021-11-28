@@ -282,7 +282,7 @@ create or alter proc sp_login
 as
 	begin
 		if exists(select * from usuarios where email = @email and clave = @clave)
-			select * from usuarios
+			select * from usuarios where email = @email and clave = @clave
 		else
 			print 'no existe'
 	end
