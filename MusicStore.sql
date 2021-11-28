@@ -140,7 +140,7 @@ Go
 
 CREATE TABLE productos
 (
-codigoProd int not null,
+codigoProd int IDENTITY (1000,1)not null,
 nombre varchar(100) not null,
 descripcion varchar(100) not null,
 codigoCat int,
@@ -179,8 +179,10 @@ go
 
 /*PROCEDIMIENTOS ALMACENADOS*/
 
+/*PROCEDIMIENTOS ALMACENADOS*/
+
 CREATE OR ALTER PROC sp_insertProduct
-@codigo int,
+
 @nombre varchar(100),
 @descripcion varchar(100),
 @idCat int,
@@ -189,7 +191,7 @@ CREATE OR ALTER PROC sp_insertProduct
 @estado tinyint = 1,
 @imagen varchar(255)
 AS
-INSERT INTO productos VALUES(@codigo,@nombre,@descripcion,@idCat,@stock,@precio,@estado,@imagen)
+INSERT INTO productos VALUES(@nombre,@descripcion,@idCat,@stock,@precio,@estado,@imagen)
 GO
 
 CREATE OR ALTER PROC sp_updateProduct
@@ -225,6 +227,21 @@ go
 
 exec sp_listCategoria
 go
+
+exec sp_insertProduct  @nombre='Fender',@descripcion='Stratocaster',@idCat=1,@stock=3,@precio=2000,@imagen='~/IMAGENES/1000.jpg'
+exec sp_insertProduct  @nombre='Gibson',@descripcion='Les paul',@idCat=1,@stock=4,@precio=5000,@imagen='~/IMAGENES/1001.jpg'
+exec sp_insertProduct  @nombre='Ddrum',@descripcion='Bateria',@idCat=3,@stock=5,@precio=2000,@imagen='~/IMAGENES/1002.jpg'
+exec sp_insertProduct  @nombre='Fender',@descripcion='Jazz bass',@idCat=2,@stock=3,@precio=2000,@imagen='~/IMAGENES/1003.jpg'
+exec sp_insertProduct  @nombre='Squier',@descripcion='Stratocaster hello Kitty',@idCat=1,@stock=2,@precio=700,@imagen='~/IMAGENES/1004.jpg'
+exec sp_insertProduct  @nombre='Roland',@descripcion='Jupiter',@idCat=5,@stock=5,@precio=5000,@imagen='~/IMAGENES/1005.jpg'
+exec sp_insertProduct  @nombre='Afinador',@descripcion='Joyo',@idCat=4,@stock=6,@precio=70,@imagen='~/IMAGENES/1006.jpg'
+exec sp_insertProduct  @nombre='Calibración',@descripcion='Calibración de guitarras',@idCat=6,@stock=999,@precio=70,@imagen='~/IMAGENES/1007.jpg'
+exec sp_insertProduct  @nombre='Mapex',@descripcion='Bateria',@idCat=3,@stock=4,@precio=4000,@imagen='~/IMAGENES/1008.jpg'
+exec sp_insertProduct  @nombre='Ibanez',@descripcion='ZBT4',@idCat=2,@stock=3,@precio=3000,@imagen='~/IMAGENES/1009.jpg'
+exec sp_insertProduct  @nombre='Ibanez',@descripcion='Pedal ts9',@idCat=4,@stock=4,@precio=400,@imagen='~/IMAGENES/1010.jpg'
+exec sp_insertProduct  @nombre='Nord',@descripcion='Studio',@idCat=5,@stock=5,@precio=7000,@imagen='~/IMAGENES/1011.jpg'
+go
+
 
 -- Sirve para mostrar informacion de las compras contenidas en una boleta
 CREATE OR ALTER PROCEDURE sp_detalle_bol_producto
