@@ -17,8 +17,25 @@ namespace Proyecto_tienda_app.Controllers
         // GET: Producto
         public ActionResult Index(int id = 0)
         {
+            var existeUsuario = Session["usuario"] as Usuario;
+
+            if (existeUsuario == null)
+            {
+                return RedirectToAction("Login", "Usuario");
+            }
+            else
+            {
+                if (existeUsuario.puestoID == 1)
+                {
+                    ViewBag.USUARIO = existeUsuario;
+                }
+                else
+                {
+                    return RedirectToAction("Tienda", "Ecommerce");
+                }
+            }
             //buscar
-           Producto reg = productos.Buscar(id);
+            Producto reg = productos.Buscar(id);
            if (reg == null) reg = new Producto();
             //Producto reg = (id == 0 ? new Producto() : productos.Buscar(id));
             //categorias
@@ -33,7 +50,23 @@ namespace Proyecto_tienda_app.Controllers
         public ActionResult Index(string btncrud, Producto reg, HttpPostedFileBase archivo)
 
         {
+            var existeUsuario = Session["usuario"] as Usuario;
 
+            if (existeUsuario == null)
+            {
+                return RedirectToAction("Login", "Usuario");
+            }
+            else
+            {
+                if (existeUsuario.puestoID == 1)
+                {
+                    ViewBag.USUARIO = existeUsuario;
+                }
+                else
+                {
+                    return RedirectToAction("Tienda", "Ecommerce");
+                }
+            }
             switch (btncrud)
 
             {
