@@ -326,7 +326,7 @@ EXEC sp_createUser 'Admin', 'Admin', '3334444', 'Soy un Admin 123', 'admin@gmail
 EXEC sp_createUser 'Jose', 'Robles', '4445555', 'Buenos Aires 322', 'jose2021@gmail.com', '123456', '87654321'
 GO
 
-UPDATE usuarios SET id = 2 WHERE codigo = 2
+UPDATE usuarios SET id = 1 WHERE codigo = 1
 GO
 
 select * from usuarios
