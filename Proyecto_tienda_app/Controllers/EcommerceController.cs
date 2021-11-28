@@ -17,6 +17,22 @@ namespace Proyecto_tienda_app.Controllers
         // GET: Ecommerce
         public ActionResult Tienda(string nombre = "")
         {
+            var existeUsuario = Session["usuario"] as Usuario;
+
+            if(existeUsuario == null)
+            {
+                return RedirectToAction("Login","Usuario");
+            }else
+            {
+                if (existeUsuario.puestoID == 2)
+                {
+                    ViewBag.USUARIO = existeUsuario;
+                } else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+
             if (Session["carrito"] == null)
             {
                 Session["carrito"] = new List<Item>();
@@ -36,6 +52,24 @@ namespace Proyecto_tienda_app.Controllers
         {
             ViewBag.error = false;
 
+            var existeUsuario = Session["usuario"] as Usuario;
+
+            if (existeUsuario == null)
+            {
+                return RedirectToAction("Login", "Usuario");
+            }
+            else
+            {
+                if (existeUsuario.puestoID == 2)
+                {
+                    ViewBag.USUARIO = existeUsuario;
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+
             Producto reg = productoDAO.Buscar(id);
             if (reg == null)
             {
@@ -51,6 +85,24 @@ namespace Proyecto_tienda_app.Controllers
         [HttpPost]
         public ActionResult Seleccionar(int codigo, int cantidad)
         {
+            var existeUsuario = Session["usuario"] as Usuario;
+
+            if (existeUsuario == null)
+            {
+                return RedirectToAction("Login", "Usuario");
+            }
+            else
+            {
+                if (existeUsuario.puestoID == 2)
+                {
+                    ViewBag.USUARIO = existeUsuario;
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+
             Producto reg = productoDAO.Buscar(codigo);
 
             if (cantidad > reg.stock)
@@ -79,6 +131,24 @@ namespace Proyecto_tienda_app.Controllers
 
         public ActionResult Carrito()
         {
+            var existeUsuario = Session["usuario"] as Usuario;
+
+            if (existeUsuario == null)
+            {
+                return RedirectToAction("Login", "Usuario");
+            }
+            else
+            {
+                if (existeUsuario.puestoID == 2)
+                {
+                    ViewBag.USUARIO = existeUsuario;
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+
             ViewBag.listado = productoDAO.listado();
 
             if (Session["carrito"] == null)
@@ -92,6 +162,24 @@ namespace Proyecto_tienda_app.Controllers
         [HttpPost]
         public ActionResult Actualizar(int id, int q)
         {
+            var existeUsuario = Session["usuario"] as Usuario;
+
+            if (existeUsuario == null)
+            {
+                return RedirectToAction("Login", "Usuario");
+            }
+            else
+            {
+                if (existeUsuario.puestoID == 2)
+                {
+                    ViewBag.USUARIO = existeUsuario;
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+
             Item reg = (Session["carrito"] as List<Item>).Where(p => p.codigo == id).FirstOrDefault();
 
             reg.cantidad = q;
@@ -103,6 +191,24 @@ namespace Proyecto_tienda_app.Controllers
 
         public ActionResult Delete(int id)
         {
+            var existeUsuario = Session["usuario"] as Usuario;
+
+            if (existeUsuario == null)
+            {
+                return RedirectToAction("Login", "Usuario");
+            }
+            else
+            {
+                if (existeUsuario.puestoID == 2)
+                {
+                    ViewBag.USUARIO = existeUsuario;
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+
             Item reg = (Session["carrito"] as List<Item>).Find(p => p.codigo == id);
 
             (Session["carrito"] as List<Item>).Remove(reg);
@@ -114,13 +220,44 @@ namespace Proyecto_tienda_app.Controllers
 
         public ActionResult Aviso(string m)
         {
+            var existeUsuario = Session["usuario"] as Usuario;
+
+            if (existeUsuario == null)
+            {
+                return RedirectToAction("Login", "Usuario");
+            }
+            else
+            {
+                if (existeUsuario.puestoID == 2)
+                {
+                    ViewBag.USUARIO = existeUsuario;
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+
             ViewBag.MENSAJE = m;
             return View();
         }
 
         public ActionResult Comprar()
         {
+            var existeUsuario = Session["usuario"] as Usuario;
+
             // TODO: Obtener a cliente o usuario por la session
+            if (existeUsuario == null)
+            {
+                return RedirectToAction("Login", "Usuario");
+            }
+
+            if (existeUsuario.puestoID != 2)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            ViewBag.USUARIO = existeUsuario;
 
             var lista = (Session["carrito"] as List<Item>);
 
@@ -133,7 +270,7 @@ namespace Proyecto_tienda_app.Controllers
             Boleta boleta = new Boleta
             {
                 Codigo = 0, // no es obligatorio
-                CodigoCliente = 1, // se requiere sesion
+                CodigoCliente = existeUsuario.Codigo, // se requiere sesion
                 Fecha = DateTime.Now, // El procedure se encarga
                 PrecioTotal = lista.Sum(i => i.monto)
             };

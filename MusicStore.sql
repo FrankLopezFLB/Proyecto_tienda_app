@@ -55,7 +55,7 @@ INSERT INTO DISTRITO
 INSERT INTO DISTRITO
   VALUES (3, 'Barranco')
 INSERT INTO DISTRITO
-  VALUES (4, 'Breña')
+  VALUES (4, 'BreÃ±a')
 INSERT INTO DISTRITO
   VALUES (5, 'Comas')
 INSERT INTO DISTRITO
@@ -132,7 +132,7 @@ GO
 
 INSERT INTO categorias VALUES(1,'Guitarras')
 INSERT INTO categorias VALUES(2,'Bajos')
-INSERT INTO categorias VALUES(3,'Baterías')
+INSERT INTO categorias VALUES(3,'BaterÃ­as')
 INSERT INTO categorias VALUES(4,'Accesorios')
 INSERT INTO categorias VALUES(5,'Sintetizadores')
 INSERT INTO categorias VALUES(6,'Servicios')
@@ -240,7 +240,7 @@ AS
   WHERE d.codigoBol = @codigoBol
 GO
 
---Procedures de creación, modificación, ingreso y eliminación de un usuario
+--Procedures de creaciÃ³n, modificaciÃ³n, ingreso y eliminaciÃ³n de un usuario
 create or alter proc sp_createUser
 @nombre varchar(25),
 @apellido varchar(25),
@@ -301,4 +301,11 @@ BEGIN
 		SET stock -= @cantidad
 	WHERE codigoProd = @codigoProd
 END
+GO
+
+EXEC sp_createUser 'Admin', 'Admin', '3334444', 'Soy un Admin 123', 'admin@gmail.com', '123456', '12345678'
+EXEC sp_createUser 'Jose', 'Robles', '4445555', 'Buenos Aires 322', 'jose2021@gmail.com', '123456', '87654321'
+GO
+
+UPDATE usuarios SET id = 1 WHERE codigo = 2
 GO

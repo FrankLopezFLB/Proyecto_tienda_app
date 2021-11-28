@@ -23,6 +23,7 @@ namespace Proyecto_tienda_app.Controllers
             //Producto reg = (id == 0 ? new Producto() : productos.Buscar(id));
             //categorias
             ViewBag.categorias = new SelectList(categorias.listado(), "codigo", "nombre", reg.idcategoria);
+
             //productos
             ViewBag.productos = productos.listado();
 
@@ -37,11 +38,11 @@ namespace Proyecto_tienda_app.Controllers
 
             {
 
-                case "Create": return Agregar(reg,archivo);
+                case "Agregar": return Agregar(reg,archivo);
 
-                case "Edit": return Actualizar(reg,archivo);
+                case "Editar": return Actualizar(reg,archivo);
 
-                case "Delete": return Eliminar(reg);
+                case "Eliminar": return Eliminar(reg);
 
                 default: return RedirectToAction("Index", new { id = 0 });
 
@@ -76,7 +77,7 @@ namespace Proyecto_tienda_app.Controllers
             SqlParameter[] pars =
 
              {
-        new SqlParameter(){ParameterName="@codigo",Value=reg.codigo},
+       // new SqlParameter(){ParameterName="@codigo",Value=reg.codigo},
 
         new SqlParameter(){ParameterName="@nombre",Value=reg.nombre},
 
