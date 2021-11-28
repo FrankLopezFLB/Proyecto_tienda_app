@@ -11,7 +11,7 @@ namespace Proyecto_tienda_app.DAO
 {
     public class UsuarioController : Controller
     {
-        usuarioDAO usuario = new usuarioDAO();      
+        usuarioDAO usuario = new usuarioDAO();
 
         public ActionResult Listado()
         {
@@ -42,6 +42,21 @@ namespace Proyecto_tienda_app.DAO
 
         public ActionResult Login(string message="")
         {
+            // Verifica si ya inició sesión
+            /*var existeUsuario = Session["usuario"] as Usuario;
+
+            if (existeUsuario != null)
+            {
+                if (existeUsuario.puestoID == 1)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    return RedirectToAction("Tienda", "Ecommerce");
+                }
+            }*/
+
             ViewBag.MESSAGE = message;
             return View();
         }
@@ -49,6 +64,22 @@ namespace Proyecto_tienda_app.DAO
         [HttpPost]
         public ActionResult Login(string Email, string Clave)
         {
+            // Verifica si ya inició sesión
+            /*
+            var existeUsuario = Session["usuario"] as Usuario;
+
+            if (existeUsuario != null)
+            {
+                if (existeUsuario.puestoID == 1)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    return RedirectToAction("Tienda", "Ecommerce");
+                }
+            }*/
+
             Usuario usuario = usuarioDAO.Instancia.Login(Email, Clave);
 
             if (usuario == null)
@@ -59,26 +90,58 @@ namespace Proyecto_tienda_app.DAO
             Session["Usuario"] = usuario;
 
             if (usuario.puestoID == 2)
-            {                
+            {
                 return RedirectToAction("Tienda", "Ecommerce");
-            }            
-            
+            }
+
             return RedirectToAction("Index", "Home");
         }
 
         public ActionResult CerrarSesion()
         {
             Session["Usuario"] = null;
-            return RedirectToAction("Index", "Usuario");
+            return RedirectToAction("Login");
         }
         public ActionResult Registrar()
         {
+            // Verifica si ya inició sesión
+            /*
+            var existeUsuario = Session["usuario"] as Usuario;
+
+            if (existeUsuario != null)
+            {
+                if (existeUsuario.puestoID == 1)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    return RedirectToAction("Tienda", "Ecommerce");
+                }
+            }*/
+
             return View(new Usuario());
         }
 
         [HttpPost]
         public ActionResult Registrar(Usuario usuario)
         {
+            // Verifica si ya inició sesión
+            /*
+            var existeUsuario = Session["usuario"] as Usuario;
+
+            if (existeUsuario != null)
+            {
+                if (existeUsuario.puestoID == 1)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    return RedirectToAction("Tienda", "Ecommerce");
+                }
+            }*/
+
             SqlParameter[] pars =
             {
                 new SqlParameter(){ParameterName="@nombre",Value=usuario.Nombre},
