@@ -79,6 +79,10 @@ namespace Proyecto_tienda_app.DAO
                     return RedirectToAction("Tienda", "Ecommerce");
                 }
             }*/
+            if(string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(Clave))
+            {
+                return Login("Se requiere email y clave");
+            }
 
             Usuario usuario = usuarioDAO.Instancia.Login(Email, Clave);
 
@@ -87,7 +91,7 @@ namespace Proyecto_tienda_app.DAO
                 return Login("Usuario o contraseña no es correcta");
             }
 
-            Session["Usuario"] = usuario;
+            Session["usuario"] = usuario;
 
             if (usuario.puestoID == 2)
             {
@@ -99,7 +103,7 @@ namespace Proyecto_tienda_app.DAO
 
         public ActionResult CerrarSesion()
         {
-            Session["Usuario"] = null;
+            Session["usuario"] = null;
             return RedirectToAction("Login");
         }
         public ActionResult Registrar()

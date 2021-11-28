@@ -264,13 +264,15 @@ create or alter proc sp_login
 @clave varchar(150)
 as
 	begin
-		if exists(select * from usuarios where email = @email and clave = @clave and id<> 1)
-			select * from usuarios where id= 2
+		if exists(select * from usuarios where email = @email and clave = @clave)
+			select * from usuarios
 		else
-			select * from usuarios where id = 1
+			print 'no existe'
 	end
 go
 
+exec sp_login '',''
+go
 
 CREATE OR ALTER PROC sp_generar_boleta
  @precioTotal decimal(10,2),
@@ -307,5 +309,7 @@ EXEC sp_createUser 'Admin', 'Admin', '3334444', 'Soy un Admin 123', 'admin@gmail
 EXEC sp_createUser 'Jose', 'Robles', '4445555', 'Buenos Aires 322', 'jose2021@gmail.com', '123456', '87654321'
 GO
 
-UPDATE usuarios SET id = 1 WHERE codigo = 2
+UPDATE usuarios SET id = 2 WHERE codigo = 2
 GO
+
+select * from usuarios
