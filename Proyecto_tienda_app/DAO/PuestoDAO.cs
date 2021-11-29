@@ -18,7 +18,7 @@ namespace Proyecto_tienda_app.DAO
             conexionDAO cn = new conexionDAO();
             using (cn.getcn)
             {
-                SqlCommand cmd = new SqlCommand("", cn.getcn);
+                SqlCommand cmd = new SqlCommand("sp_alfredo_puestos", cn.getcn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cn.getcn.Open();
 

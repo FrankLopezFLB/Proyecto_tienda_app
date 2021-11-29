@@ -212,6 +212,8 @@
     <Content Include="Views\Usuario\Login.cshtml" />
     <Content Include="Views\Usuario\Registrar.cshtml" />
     <Content Include="Views\Shared\_Layout_LR.cshtml" />
+    <Content Include="Views\Usuario\Listado.cshtml" />
+    <Content Include="Views\Usuario\Actualizar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

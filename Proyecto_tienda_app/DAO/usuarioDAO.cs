@@ -28,13 +28,13 @@ namespace Proyecto_tienda_app.DAO
                 return instancia;
             }
         }
-        public IEnumerable<Usuario> Listado()
+        public IEnumerable<Usuario> listadoUsuarios()
         {
             List<Usuario> temporal = new List<Usuario>();
             conexionDAO cn = new conexionDAO();
             using (cn.getcn)
             {
-                SqlCommand cmd = new SqlCommand("", cn.getcn);
+                SqlCommand cmd = new SqlCommand("sp_alfredo_listarUsuario", cn.getcn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cn.getcn.Open();
 
@@ -53,7 +53,8 @@ namespace Proyecto_tienda_app.DAO
                         Clave = dr.GetString(6),
                         Dni = dr.GetString(7),
                         Estado = dr.GetInt32(8),
-                        puestoID = dr.GetInt32(9)
+                        puestoID = dr.GetInt32(9),
+                        nombrePuesto = dr.GetString(11),
                     });
                 }
 
@@ -66,7 +67,7 @@ namespace Proyecto_tienda_app.DAO
         
         public Usuario Buscar(int id)
         {
-            return Listado().FirstOrDefault(p => p.Codigo == id);
+            return listadoUsuarios().FirstOrDefault(p => p.Codigo == id);
         }
 
         public Response Registrar(Usuario usuario)
@@ -167,6 +168,7 @@ namespace Proyecto_tienda_app.DAO
                 command.Parameters.AddWithValue("@email", usuario.Email);
                 command.Parameters.AddWithValue("@clave", usuario.Clave);
                 command.Parameters.AddWithValue("@dni", usuario.Dni);
+                command.Parameters.AddWithValue("@pue", usuario.puestoID);
 
                 cn.getcn.Open();
 

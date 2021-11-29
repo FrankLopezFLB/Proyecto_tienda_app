@@ -30,15 +30,19 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                       aria-expanded="false">
-                        Mantenimiento <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li>@Html.ActionLink("Mant Producto", "Index", "Producto")</li>
-                    </ul>
-                </li>
+                <li>@Html.ActionLink("Mant Producto", "Index", "Producto")</li>
+                <li>@Html.ActionLink("Usuarios", "Listado", "Usuario")</li>
+                <!-- <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+           aria-expanded="false">
+            Mantenimiento <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu" role="menu">
+            <li>@Html.ActionLink("Mant Producto", "Index", "Producto")</li>
+        </ul>
+        </li>
+    -->
+
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">

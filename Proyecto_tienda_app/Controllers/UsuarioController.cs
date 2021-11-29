@@ -12,27 +12,74 @@ namespace Proyecto_tienda_app.DAO
     public class UsuarioController : Controller
     {
         usuarioDAO usuario = new usuarioDAO();
+        PuestoDAO daoP = new PuestoDAO();
 
         public ActionResult Listado()
         {
-            List<Usuario> listado = new List<Usuario>();
+            var existeUsuario = Session["usuario"] as Usuario;
 
-            return View();
+            if (existeUsuario == null)
+            {
+                return RedirectToAction("Login", "Usuario");
+            }
+            else
+            {
+                if (existeUsuario.puestoID == 1)
+                {
+                    ViewBag.USUARIO = existeUsuario;
+                }
+                else
+                {
+                    return RedirectToAction("Tienda", "Ecommerce");
+                }
+            }
+            return View(usuario.listadoUsuarios());
         }
 
         // GET
         public ActionResult Actualizar(int codigo)
         {
-
-            // Se busca un cliente
-            Usuario usuario = new Usuario();
-
-            return View(usuario);
+            var existeUsuario = Session["usuario"] as Usuario;
+            if (existeUsuario == null)
+            {
+                return RedirectToAction("Login", "Usuario");
+            }
+            else
+            {
+                if (existeUsuario.puestoID == 1)
+                {
+                    ViewBag.USUARIO = existeUsuario;
+                }
+                else
+                {
+                    return RedirectToAction("Tienda", "Ecommerce");
+                }
+            }
+            Usuario us = usuario.Buscar(codigo);
+            ViewBag.puestos = new SelectList(daoP.Listado(), "Id", "Nombre", us.puestoID);
+            return View(us);
         }
 
-        public ActionResult Actualizar(int codigo, Usuario usuario)
+        [HttpPost]
+        public ActionResult Actualizar(Usuario usu)
         {
-            return View(usuario);
+            
+            SqlParameter[] pars =
+            {
+                new SqlParameter(){ParameterName="@cod",Value=usu.Codigo},
+                new SqlParameter(){ParameterName="@nom",Value=usu.Nombre},
+                new SqlParameter(){ParameterName="@ape",Value=usu.Apellido},
+                new SqlParameter(){ParameterName="@tel",Value=usu.Telefono},
+                new SqlParameter(){ParameterName="@dir",Value=usu.Direccion},
+                new SqlParameter(){ParameterName="@ema",Value=usu.Email},
+                new SqlParameter(){ParameterName="@cla",Value=usu.Clave},
+                new SqlParameter(){ParameterName="@dni",Value=usu.Dni},
+                new SqlParameter(){ParameterName="@pue",Value=usu.puestoID},
+            };
+
+            ViewBag.mensaje = usuarioDAO.Instancia.CRUD("sp_alfredo_actualizarUsuario", pars, 2);
+            ViewBag.puestos = new SelectList(daoP.Listado(), "Id", "Nombre",usu.puestoID);
+            return View(usu);
         }
 
         public ActionResult Eliminar(int codigo)

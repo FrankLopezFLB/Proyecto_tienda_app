@@ -24,8 +24,10 @@ GO
 
 INSERT INTO puestos
   VALUES (1, 'Trabajador')
+  go
 INSERT INTO puestos
   VALUES (2, 'Cliente')
+  go
 
 CREATE TABLE usuarios (
   codigo int IDENTITY (1, 1) NOT NULL,
@@ -329,4 +331,35 @@ GO
 UPDATE usuarios SET id = 1 WHERE codigo = 1
 GO
 
-select * from usuarios
+create or alter proc sp_alfredo_listarUsuario
+as
+begin 
+select * from usuarios u inner join puestos p on u.id = p.id
+end
+go
+
+create or alter proc sp_alfredo_actualizarUsuario
+@cod int,
+@nom varchar(25),
+@ape varchar(25),
+@tel char(9),
+@dir varchar(200),
+@ema varchar(100),
+@cla varchar(150), 
+@dni char(8),
+@pue int
+as
+begin 
+update usuarios 
+set nombre = @nom, apellido=@ape, telefono=@tel, direccion=@dir, email=@ema, clave=@cla, dni=@dni,id=@pue
+where codigo = @cod
+end
+go
+
+create or alter proc sp_alfredo_puestos
+as
+begin 
+select * from  puestos
+end
+go
+

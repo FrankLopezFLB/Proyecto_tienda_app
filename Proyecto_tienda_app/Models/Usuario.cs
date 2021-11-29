@@ -17,7 +17,6 @@ namespace Proyecto_tienda_app.Models
         public string Dni { get; set; }
         public int Estado { get; set; }
         public int puestoID { get; set; }
-
-
+        public string nombrePuesto { get; set; }
     }
 }
