@@ -6,7 +6,7 @@
 }
 
 <style>
-    body {
+    body { 
         background: white !important;
     }
 
@@ -17,6 +17,19 @@
     .titulo{
         margin-left:25%;
     }
+    .alerta {
+        width: 55%;
+        background-color: #87CEEB;
+        border-radius: 4px;
+        color: white
+    }
+    .btn-default {
+        background-color: #C0C0C0;
+    }
+    .eliminado {
+        background-color: #FF4500
+    }
+
    
 </style>
 
@@ -147,16 +160,17 @@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Actualizar" class="btn btn-default" />
+                    <input type="submit" name ="btnCrud" value="Actualizar" class="btn btn-default" />
                     @Html.ActionLink("Regresar", "Listado", "Usuario", new { @class = "btn btn-default" })
+                    <input type="submit" name ="btnCrud" value="Eliminar" class="btn btn-info eliminado" />
                 </div>
             </div>
         </div>
-        <div class="text-center">
+        <div class="text-center alerta">
             @{
                 if (!string.IsNullOrEmpty(ViewBag.confirmacion))
                 {
-                    <div class="alert alert-danger" style="text-align:center;">@ViewBag.confirmacion</div>
+                    <div class="alert" style="text-align:center;">@ViewBag.confirmacion</div>
                 }
             }
         </div>

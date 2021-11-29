@@ -61,7 +61,7 @@ namespace Proyecto_tienda_app.DAO
         }
 
         [HttpPost]
-        public ActionResult Actualizar(Usuario usu)
+        public ActionResult Actualizar(string btnCrud,Usuario usu)
         {
             var existeUsuario = Session["usuario"] as Usuario;
             if (existeUsuario == null)
@@ -79,8 +79,12 @@ namespace Proyecto_tienda_app.DAO
                     return RedirectToAction("Tienda", "Ecommerce");
                 }
             }
-            SqlParameter[] pars =
+            if (btnCrud == "Actualizar")
             {
+
+
+                SqlParameter[] pars =
+                {
                 new SqlParameter(){ParameterName="@cod",Value=usu.Codigo},
                 new SqlParameter(){ParameterName="@nom",Value=usu.Nombre},
                 new SqlParameter(){ParameterName="@ape",Value=usu.Apellido},
@@ -90,16 +94,25 @@ namespace Proyecto_tienda_app.DAO
                 new SqlParameter(){ParameterName="@cla",Value=usu.Clave},
                 new SqlParameter(){ParameterName="@dni",Value=usu.Dni},
                 new SqlParameter(){ParameterName="@pue",Value=usu.puestoID},
-            };
-
-            ViewBag.mensaje = usuarioDAO.Instancia.CRUD("sp_alfredo_actualizarUsuario", pars, 2);
-            ViewBag.puestos = new SelectList(daoP.Listado(), "Id", "Nombre",usu.puestoID);
-            ViewBag.confirmacion = "Usuario Actualizado";
-            return View(usu);
+                };
+                ViewBag.mensaje = usuario.CRUD("sp_alfredo_actualizarUsuario", pars, 2);
+                ViewBag.puestos = new SelectList(daoP.Listado(), "Id", "Nombre", usu.puestoID);
+                ViewBag.confirmacion = "Usuario Actualizado";
+                return View(usu);
+            }
+            else
+                return Eliminar(usu);
         }
 
-        public ActionResult Eliminar(int codigo)
+        public ActionResult Eliminar(Usuario usu)
         {
+            SqlParameter[] pars =
+            {
+                new SqlParameter(){ParameterName="@cod",Value=usu.Codigo}
+            };
+            ViewBag.mensaje = usuario.CRUD("sp_alfredo_eliminarU", pars, 3);
+            ViewBag.puestos = new SelectList(daoP.Listado(), "Id", "Nombre", "Id");
+            ViewBag.confirmacion = "Usuario Eliminado";
             return View();
         }
 

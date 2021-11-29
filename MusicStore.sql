@@ -33,11 +33,11 @@ CREATE TABLE usuarios (
   codigo int IDENTITY (1, 1) NOT NULL,
   nombre varchar(25) NOT NULL,
   apellido varchar(25) NOT NULL,
-  telefono char(9) NULL,
+  telefono varchar(9) NULL,
   direccion varchar(200) NULL,
-  email varchar(100) NULL UNIQUE,
+  email varchar(100) NULL unique,
   clave varchar(150) NOT NULL,  
-  dni char(8) NOT NULL UNIQUE,
+  dni char(8) NOT NULL,
   estado INT NOT NULL DEFAULT 1,
   id int not null references puestos default 2,
   CONSTRAINT pk_registroTrabajadorID PRIMARY KEY CLUSTERED (codigo)
@@ -227,9 +227,6 @@ AS
 SELECT * FROM categorias
 go
 
-exec sp_listCategoria
-go
-
 exec sp_insertProduct  @nombre='Fender',@descripcion='Stratocaster',@idCat=1,@stock=3,@precio=2000,@imagen='~/IMAGENES/1000.jpg'
 exec sp_insertProduct  @nombre='Gibson',@descripcion='Les paul',@idCat=1,@stock=4,@precio=5000,@imagen='~/IMAGENES/1001.jpg'
 exec sp_insertProduct  @nombre='Ddrum',@descripcion='Bateria',@idCat=3,@stock=5,@precio=2000,@imagen='~/IMAGENES/1002.jpg'
@@ -284,7 +281,7 @@ create or alter proc sp_login
 as
 	begin
 		if exists(select * from usuarios where email = @email and clave = @clave)
-			select * from usuarios where email = @email and clave = @clave
+			select * from usuarios where email = @email and clave = @clave and estado = 1
 		else
 			print 'no existe'
 	end
@@ -324,8 +321,10 @@ BEGIN
 END
 GO
 
-EXEC sp_createUser 'Admin', 'Admin', '3334444', 'Soy un Admin 123', 'admin@gmail.com', '123456', '12345678'
-EXEC sp_createUser 'Jose', 'Robles', '4445555', 'Buenos Aires 322', 'jose2021@gmail.com', '123456', '87654321'
+EXEC sp_createUser 'Admin', 'Admin', '333444443', 'Soy un Admin 123', 'admin@gmail.com', '123456', '12345678'
+EXEC sp_createUser 'Jose', 'Robles', '444555545', 'Buenos Aires 322', 'jose2021@gmail.com', '123456', '87654321'
+EXEC sp_createUser 'Alfredo', 'Castillo', '950299333', 'Lima', 'alfredo@gmail.com', '123456', '87654321'
+EXEC sp_createUser 'Frank', 'Lopez', '985458751', 'Lince', 'frank@gmail.com', '123456', '98758424'
 GO
 
 UPDATE usuarios SET id = 1 WHERE codigo = 1
@@ -335,6 +334,7 @@ create or alter proc sp_alfredo_listarUsuario
 as
 begin 
 select * from usuarios u inner join puestos p on u.id = p.id
+where estado=1
 end
 go
 
@@ -363,6 +363,16 @@ select * from  puestos
 end
 go
 
-select * from  usuarios
+create or alter proc sp_alfredo_eliminarU
+@cod int
+as
+begin 
+update usuarios 
+set estado =2
+where codigo = @cod
+end
 go
 
+update usuarios 
+set estado =1
+where codigo = 4

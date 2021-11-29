@@ -15,6 +15,18 @@
     .container {
         width:70%;
     }
+    .btn {
+        background-color: #C0C0C0;
+        color: #191970;
+    }
+    .cabeza {
+        background-color: #C0C0C0;
+        margin: 10px 0px 10px;
+        font-size: 16px;
+        color: #191970;
+        text-align: center;
+        border:none;
+    }
 </style>
 
 <nav class="navbar navbar-default" role="navigation">
@@ -60,7 +72,7 @@
         <h3>Lista de Usuarios</h3>
     </center>
     <table class="table">
-        <tr>
+        <tr class="cabeza">
             <th style=" display:none"">
                 @Html.DisplayNameFor(model => model.Codigo)
             </th>
@@ -88,7 +100,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.nombrePuesto)
             </th>
-            <th></th>
+            <th style="background-color:white; display:none"></th>
         </tr>
 
         @foreach (var item in Model)
@@ -122,10 +134,9 @@
                     @Html.DisplayFor(modelItem => item.nombrePuesto)
                 </td>
                 <td>
-                    @Html.ActionLink("Seleccionar", "Actualizar", new { codigo = item.Codigo }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Seleccionar", "Actualizar", new { codigo = item.Codigo }, new { @class = "btn" })
                 </td>
             </tr>
         }
-
     </table>
 </div>
