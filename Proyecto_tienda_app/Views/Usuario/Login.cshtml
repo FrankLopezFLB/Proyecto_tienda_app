@@ -4,8 +4,13 @@
     ViewBag.Title = "Index";
 }
 
-<div class="container body-content" style="margin-top:100px">
-    <div class="panel" style="background: white; border-radius:20px">
+<div class="container" style="width: 40%;
+       margin-top:100px;
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px 0 rgba(0,0,0,.10);">
+    
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
@@ -15,34 +20,38 @@
                 <hr />
             </div>
 
-            <div class="panel-body col-md-offset-3">
+         
                 <div class="form-horizontal">
 
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
+                        @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
                             @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Clave, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
+                        @Html.LabelFor(model => model.Clave, htmlAttributes: new { @class = "control-label col-md-4" })
+                        <div class="col-md-8">
                             @Html.PasswordFor(model => model.Clave, new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.Clave, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Aceptar" class="btn btn-success" />
-                            <a class="btn btn-warning" href="#">Cancelar</a>
-                        </div>
+                    
+                    <div class="text-center">
+                        <input type="submit" value="Aceptar" class="btn btn-success" />
+                        <a class="btn btn-warning" href="#">Cancelar</a>
+                        <br />
+                        <br />
+                        <label>¿Aún no estás registrado? Regístrate</label> @Html.ActionLink(" Aquí", "Registrar")
                     </div>
-                    <label class="text-center">¿Aún no estás registrado? Regístrate</label> @Html.ActionLink(" Aquí", "Registrar")
-                    <div style="text-align:left;width:50%;">
+                        
+                   
+                   
+                    <div class="text-center">
                         @{
                             if (!string.IsNullOrEmpty(ViewBag.MESSAGE))
                             {
@@ -51,9 +60,9 @@
                         }
                     </div>
                 </div>
-            </div>
+        
         }
-    </div>
+  
 
     <script src="~/Scripts/jquery-3.4.1.min.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
