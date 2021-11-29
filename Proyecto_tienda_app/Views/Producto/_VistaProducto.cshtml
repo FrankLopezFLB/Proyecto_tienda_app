@@ -1,0 +1,75 @@
+﻿ @model IEnumerable<Proyecto_tienda_app.Models.Producto>
+
+<table class="table">
+    <tr>
+        <th>
+            Código
+           
+        </th>
+        <th>
+            Nombre
+        </th>
+        <th>
+            Descripción
+        </th>
+        <th>
+            Categoría
+        </th>
+
+        <th hidden>
+            @Html.DisplayNameFor(model => model.idcategoria)
+        </th>
+
+        <th>
+           Stock
+        </th>
+        <th>
+           Precio
+        </th>
+        <th hidden>
+            @Html.DisplayNameFor(model => model.estado)
+        </th>
+        <th>
+           Imagen
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.codigo)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.nombre)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.descripcion)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.nomcategoria)
+    </td>
+
+    <td hidden>
+        @Html.DisplayFor(modelItem => item.idcategoria)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.stock)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.precio)
+    </td>
+    <td hidden>
+        @Html.DisplayFor(modelItem => item.estado)
+    </td>
+    <td>
+        <img src="@Url.Content(item.rutaimg)" style="width:40px; height:40px" />
+    </td>
+    <td>
+
+        @Html.ActionLink("Seleccionar", "Index", new { id = item.codigo })
+    </td>
+</tr>
+}
+
+</table>

@@ -1,0 +1,142 @@
+﻿@model IEnumerable<Proyecto_tienda_app.Models.Usuario>
+
+@{
+    ViewBag.Title = "Listado";
+    var usuario = ViewBag.USUARIO as Proyecto_tienda_app.Models.Usuario;
+}
+<style>
+    body {
+        background: white !important;
+    }
+
+    .body-content {
+        background: white !important;
+    }
+    .container {
+        width:70%;
+    }
+    .btn {
+        background-color: #C0C0C0;
+        color: #191970;
+    }
+    .cabeza {
+        background-color: #C0C0C0;
+        margin: 10px 0px 10px;
+        font-size: 16px;
+        color: #191970;
+        text-align: center;
+        border:none;
+    }
+</style>
+
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("MusicStore", "Index", "Home", null, new { @class = "navbar-brand" })
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
+                <li>@Html.ActionLink("Productos", "Index", "Producto")</li>
+                <li>@Html.ActionLink("Usuarios", "Listado", "Usuario")</li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                       aria-expanded="false">
+                        @usuario.Nombre
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>@Html.ActionLink("Cerrar Sesión", "CerrarSesion", "Usuario")</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+<div class="container">
+    <center>
+        <h3>Lista de Usuarios</h3>
+    </center>
+    <table class="table">
+        <tr class="cabeza">
+            <th style=" display:none"">
+                @Html.DisplayNameFor(model => model.Codigo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Apellido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Telefono)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Direccion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dni)
+            </th>
+            <th style="display:none">
+                @Html.DisplayNameFor(model => model.puestoID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nombrePuesto)
+            </th>
+            <th style="background-color:white; display:none"></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="display:none">
+                    @Html.DisplayFor(modelItem => item.Codigo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Apellido)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telefono)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Direccion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Dni)
+                </td>
+                <td style="display:none">
+                    @Html.DisplayFor(modelItem => item.puestoID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nombrePuesto)
+                </td>
+                <td>
+                    @Html.ActionLink("Seleccionar", "Actualizar", new { codigo = item.Codigo }, new { @class = "btn" })
+                </td>
+            </tr>
+        }
+    </table>
+</div>

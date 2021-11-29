@@ -1,16 +1,18 @@
 ﻿body {
-    padding-top: 50px;
+    /*padding-top: 50px;*/
     padding-bottom: 20px;
+    background: #e2e9eb!important;
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
+    background: #e2e9eb!important;
     padding-left: 15px;
     padding-right: 15px;
 }
 
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
+/* Override the default bootstrap behavior where horizontal description lists
+   will truncate terms that are too long to fit in the left column
 */
 .dl-horizontal dt {
     white-space: normal;
@@ -21,4 +23,125 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+#header-banner {
+    background-color: #ebebeb;
+}
+
+    #header-banner.demo-1 {
+        background: url("https://www.trinomusic.com/sites/default/files/content_images/product/guitarra_electrica_cort_x250_bk.png") no-repeat;
+        background-size: cover;
+        background-position: center;
+        background-color: #cccccc;
+    }
+
+.banner-content {
+    padding: 170px 0;
+}
+
+.one-page .banner-content {
+    padding: 245px 0;
+}
+
+.banner-content.single-page {
+    padding: 80px 0;
+}
+
+.banner-border {
+    width: 420px;
+    border: 2px solid rgba(255, 255, 255, 0.75);
+    margin: 0 auto;
+    padding: 10px;
+}
+
+    .banner-border .banner-info {
+        background: rgba(255, 255, 255, 0.75);
+        width: 396px;
+        margin: 0;
+        padding: 50px 0;
+    }
+
+.banner-info {
+    background: rgba(255, 255, 255, 0.75);
+    width: 400px;
+    margin: 0 auto;
+    padding: 50px 0;
+}
+
+    .banner-info.primary {
+        background: rgba(195, 157, 109, 0.75);
+    }
+
+        .banner-info.primary h1, .banner-info.primary p {
+            color: white;
+        }
+
+    .banner-info h1 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .banner-info p {
+        margin-bottom: 0;
+    }
+
+.lib-panel {
+    margin-bottom: 20Px;
+}
+
+    .lib-panel img {
+        width: 100%;
+        background-color: transparent;
+    }
+
+    .lib-panel .row,
+    .lib-panel .col-md-6 {
+        padding: 0;
+        background-color: #FFFFFF;
+    }
+
+
+    .lib-panel .lib-row {
+        padding: 0 20px 0 20px;
+    }
+
+        .lib-panel .lib-row.lib-header {
+            background-color: #FFFFFF;
+            font-size: 20px;
+            padding: 10px 20px 0 20px;
+        }
+
+            .lib-panel .lib-row.lib-header .lib-header-seperator {
+                height: 2px;
+                width: 26px;
+                background-color: #d9d9d9;
+                margin: 7px 0 7px 0;
+            }
+
+        .lib-panel .lib-row.lib-desc {
+            position: relative;
+            height: 100%;
+            display: block;
+            font-size: 13px;
+        }
+
+            .lib-panel .lib-row.lib-desc a {
+                position: absolute;
+                width: 100%;
+                bottom: 10px;
+                left: 20px;
+            }
+
+.row-margin-bottom {
+    margin-bottom: 20px;
+}
+
+.box-shadow {
+    -webkit-box-shadow: 0 0 10px 0 rgba(0,0,0,.10);
+    box-shadow: 0 0 10px 0 rgba(0,0,0,.10);
+}
+
+.no-padding {
+    padding: 0;
 }
