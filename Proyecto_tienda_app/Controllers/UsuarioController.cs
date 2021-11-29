@@ -43,29 +43,6 @@ namespace Proyecto_tienda_app.DAO
         public ActionResult Login(string message="")
         {
             // Verifica si ya inició sesión
-            /*var existeUsuario = Session["usuario"] as Usuario;
-
-            if (existeUsuario != null)
-            {
-                if (existeUsuario.puestoID == 1)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    return RedirectToAction("Tienda", "Ecommerce");
-                }
-            }*/
-
-            ViewBag.MESSAGE = message;
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Login(string Email, string Clave)
-        {
-            // Verifica si ya inició sesión
-            /*
             var existeUsuario = Session["usuario"] as Usuario;
 
             if (existeUsuario != null)
@@ -78,7 +55,31 @@ namespace Proyecto_tienda_app.DAO
                 {
                     return RedirectToAction("Tienda", "Ecommerce");
                 }
-            }*/
+            }
+
+            ViewBag.MESSAGE = message;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(string Email, string Clave)
+        {
+            // Verifica si ya inició sesión
+
+            var existeUsuario = Session["usuario"] as Usuario;
+
+            if (existeUsuario != null)
+            {
+                if (existeUsuario.puestoID == 1)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    return RedirectToAction("Tienda", "Ecommerce");
+                }
+            }
+
             if(string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(Clave))
             {
                 return Login("Se requiere email y clave");
@@ -109,7 +110,7 @@ namespace Proyecto_tienda_app.DAO
         public ActionResult Registrar()
         {
             // Verifica si ya inició sesión
-            /*
+
             var existeUsuario = Session["usuario"] as Usuario;
 
             if (existeUsuario != null)
@@ -122,7 +123,7 @@ namespace Proyecto_tienda_app.DAO
                 {
                     return RedirectToAction("Tienda", "Ecommerce");
                 }
-            }*/
+            }
 
             return View(new Usuario());
         }
@@ -131,7 +132,6 @@ namespace Proyecto_tienda_app.DAO
         public ActionResult Registrar(Usuario usuario)
         {
             // Verifica si ya inició sesión
-            /*
             var existeUsuario = Session["usuario"] as Usuario;
 
             if (existeUsuario != null)
@@ -144,7 +144,7 @@ namespace Proyecto_tienda_app.DAO
                 {
                     return RedirectToAction("Tienda", "Ecommerce");
                 }
-            }*/
+            }
 
             SqlParameter[] pars =
             {

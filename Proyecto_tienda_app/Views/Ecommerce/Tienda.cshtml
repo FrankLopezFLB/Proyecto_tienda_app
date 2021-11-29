@@ -1,14 +1,16 @@
 ﻿@model IEnumerable<Proyecto_tienda_app.Models.Producto>
 
+
 @{
     ViewBag.Title = "Tienda";
+    var usuario = ViewBag.USUARIO as Proyecto_tienda_app.Models.Usuario;
 }
 
 <style>
 
     .radius-01 {
         border-radius: 1rem !important;
-        border: 1px solid black !important;
+        box-shadow: 10px 17px 25px -25px rgb(0 0 0 / 75%)
     }
 
     .productos-container {
@@ -31,64 +33,101 @@
     }
 </style>
 
-<h2>Tienda Virtual</h2>
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
 
-<div class="buscar">
-    @using (Html.BeginForm())
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("MusicStore", "Tienda", "Ecommerce", new { nombre = "" }, new { @class = "navbar-brand" })
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Catálogo de Instrumentos", "Tienda", "Ecommerce")</li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                       aria-expanded="false">
+                        @usuario.Nombre
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>@Html.ActionLink("Cerrar Sesión", "CerrarSesion", "Usuario")</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container body-content">
+    <h2>Tienda de Instrumentos Musicales</h2>
+
+    <div class="buscar">
+        @using (Html.BeginForm())
+        {
+            <em>Ingrese el Nombre</em>
+            @Html.TextBox("nombre", "", new { @class="form-control", @style="display:inline-block!important;" })
+            <button class="btn btn-success">Buscar</button>
+        }
+    </div>
+
+    <div style="margin-bottom: 1rem">
+        @Html.ActionLink("Ir a la Canasta", "Carrito", null, new { @class = "btn btn-primary" })
+    </div>
+
+    @if (Model.Count() != 0)
     {
-        <em>Ingrese el Nombre</em>
-        @Html.TextBox("nombre", "")
-        <button>Buscar</button>
+        <div class="productos-container">
+            @foreach (var item in Model)
+            {
+                <div class="thumbnail radius-01">
+                    <div class="caption text-center">
+                        <table style="width:100%;margin-bottom:0.5rem">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <img class="img-producto" src="@Url.Content($"~/IMAGENES/{item.codigo}.jpg")" alt="@item.nombre">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>@item.codigo</td>
+                                </tr>
+                                <tr>
+                                    <td>@item.nombre</td>
+                                </tr>
+                                <tr>
+                                    <td>S/@item.precio</td>
+                                </tr>
+                                <tr>
+                                    <td>@item.stock</td>
+                                </tr>
+                                @if (item.stock > 0)
+                                {
+                                    <tr>
+                                        <td>@Html.ActionLink("Agregar al Carrito", "Seleccionar", new { id = item.codigo }, new { @class = "btn btn-primary", @style = "margin-top:0.3rem" })</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info">
+            @ViewBag.MENSAJE
+        </div>
     }
 </div>
 
-<div style="margin-bottom: 1rem">
-    @Html.ActionLink("Ir a la Canasta", "Carrito", null, new { @class = "btn btn-primary" }) |
-    @Html.ActionLink("Ir a Comprar", "Comprar", null, new { @class = "btn btn-primary" })
-</div>
 
-@if (Model.Count() != 0)
-{
-    <div class="productos-container">
-        @foreach (var item in Model)
-        {
-            <div class="thumbnail radius-01">
-                <div class="caption text-center">
-                    <table style="width:100%;margin-bottom:0.5rem">
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <img class="img-producto" src="@Url.Content($"~/IMAGENES/{item.codigo}.jpg")" alt="@item.nombre">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>@item.codigo</td>
-                            </tr>
-                            <tr>
-                                <td>@item.nombre</td>
-                            </tr>
-                            <tr>
-                                <td>S/@item.precio</td>
-                            </tr>
-                            <tr>
-                                <td>@item.stock</td>
-                            </tr>
-                            @if (item.stock > 0)
-                            {
-                                <tr>
-                                    <td>@Html.ActionLink("Agregar al Carrito", "Seleccionar", new { id = item.codigo }, new { @class = "btn btn-primary", @style = "margin-top:0.3rem" })</td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        }
-    </div>
-}
-else
-{
-    <div class="alert alert-info">
-        @ViewBag.MENSAJE
-    </div>
-}

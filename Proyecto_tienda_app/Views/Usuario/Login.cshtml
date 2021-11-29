@@ -4,57 +4,59 @@
     ViewBag.Title = "Index";
 }
 
-<div class="panel">
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
+<div class="container body-content" style="margin-top:100px">
+    <div class="panel" style="background: white; border-radius:20px">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-        <div class="panel-heading text-center">
-            <h3>Iniciar Sesión</h3>
-            <hr/>
-        </div>
+            <div class="panel-heading text-center">
+                <h3>Iniciar Sesión</h3>
+                <hr />
+            </div>
 
-        <div class="panel-body col-md-offset-3">
-            <div class="form-horizontal">
+            <div class="panel-body col-md-offset-3">
+                <div class="form-horizontal">
 
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Clave, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.PasswordFor(model => model.Clave, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Clave, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Clave, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.PasswordFor(model => model.Clave, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Clave, "", new { @class = "text-danger" })
+                        </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Aceptar" class="btn btn-success" />
-                        <a class="btn btn-warning" href="#">Cancelar</a>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Aceptar" class="btn btn-success" />
+                            <a class="btn btn-warning" href="#">Cancelar</a>
+                        </div>
                     </div>
-                </div>
-                <label class="text-center">¿Aún no estás registrado? Regístrate</label> @Html.ActionLink(" Aquí", "Registrar")
-                <div style="text-align:left;width:50%;">
-                    @{
-                        if (!string.IsNullOrEmpty(ViewBag.MESSAGE))
-                        {
-                            <div class="alert alert-danger j-alert" style="text-align:center;">@ViewBag.MESSAGE</div>
+                    <label class="text-center">¿Aún no estás registrado? Regístrate</label> @Html.ActionLink(" Aquí", "Registrar")
+                    <div style="text-align:left;width:50%;">
+                        @{
+                            if (!string.IsNullOrEmpty(ViewBag.MESSAGE))
+                            {
+                                <div class="alert alert-danger j-alert" style="text-align:center;">@ViewBag.MESSAGE</div>
+                            }
                         }
-                    }
+                    </div>
                 </div>
             </div>
-        </div>
-    }
+        }
+    </div>
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
 </div>
-
-<script src="~/Scripts/jquery-3.4.1.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-
