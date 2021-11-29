@@ -82,11 +82,19 @@
                                             <br />
                                             <br />
                                             <label>Si ya se encuentra registrado, haga click</label>@Html.ActionLink(" Aquí", "Login")
+                                            <div>
+                                                <p>
+                                                    @ViewBag.marmota
+                                                </p>
+                                            </div>
                                         </div>
+
                                     </div>
                               }
       
     </div>
+
+  
 
     @section Scripts {
         @Scripts.Render("~/bundles/jqueryval")

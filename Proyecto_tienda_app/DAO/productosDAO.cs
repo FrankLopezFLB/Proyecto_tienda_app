@@ -115,9 +115,7 @@ namespace Proyecto_tienda_app.DAO
         public Producto Buscar(int id)
         {
             Producto reg = listado().Where(c => c.codigo == id).FirstOrDefault();
-
             return reg;
-
         }
         public string CRUD(string SP, SqlParameter[] pars = null, int op = 0)
         {
@@ -133,12 +131,9 @@ namespace Proyecto_tienda_app.DAO
                 if (op == 1) mensaje = c + "registro agregado";
                 else if (op == 2) mensaje = c + "registro actualizado";
                 else if (op == 3) mensaje = c + "registro eliminado";
-
-
             }
             catch (SqlException ex)
             {
-
                 mensaje = ex.Message;
             }
             finally { cn.getcn.Close(); }

@@ -63,7 +63,22 @@ namespace Proyecto_tienda_app.DAO
         [HttpPost]
         public ActionResult Actualizar(Usuario usu)
         {
-            
+            var existeUsuario = Session["usuario"] as Usuario;
+            if (existeUsuario == null)
+            {
+                return RedirectToAction("Login", "Usuario");
+            }
+            else
+            {
+                if (existeUsuario.puestoID == 1)
+                {
+                    ViewBag.USUARIO = existeUsuario;
+                }
+                else
+                {
+                    return RedirectToAction("Tienda", "Ecommerce");
+                }
+            }
             SqlParameter[] pars =
             {
                 new SqlParameter(){ParameterName="@cod",Value=usu.Codigo},
@@ -79,6 +94,7 @@ namespace Proyecto_tienda_app.DAO
 
             ViewBag.mensaje = usuarioDAO.Instancia.CRUD("sp_alfredo_actualizarUsuario", pars, 2);
             ViewBag.puestos = new SelectList(daoP.Listado(), "Id", "Nombre",usu.puestoID);
+            ViewBag.confirmacion = "Usuario Actualizado";
             return View(usu);
         }
 
@@ -204,6 +220,7 @@ namespace Proyecto_tienda_app.DAO
                 new SqlParameter(){ParameterName="@dni",Value=usuario.Dni}
             };
             ViewBag.mensaje = usuarioDAO.Instancia.CRUD("sp_createUser", pars, 1);
+            ViewBag.marmota = "Usuario Agregado";
             return View(usuario);
         }
 

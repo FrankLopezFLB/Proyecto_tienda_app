@@ -363,3 +363,6 @@ select * from  puestos
 end
 go
 
+select * from  usuarios
+go
+

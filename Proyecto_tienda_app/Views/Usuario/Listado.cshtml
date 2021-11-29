@@ -4,6 +4,19 @@
     ViewBag.Title = "Listado";
     var usuario = ViewBag.USUARIO as Proyecto_tienda_app.Models.Usuario;
 }
+<style>
+    body {
+        background: white !important;
+    }
+
+    .body-content {
+        background: white !important;
+    }
+    .container {
+        width:70%;
+    }
+</style>
+
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
 
@@ -21,15 +34,8 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                       aria-expanded="false">
-                        Mantenimiento <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li>@Html.ActionLink("Mant Producto", "Index", "Producto")</li>
-                    </ul>
-                </li>
+                <li>@Html.ActionLink("Productos", "Index", "Producto")</li>
+                <li>@Html.ActionLink("Usuarios", "Listado", "Usuario")</li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
@@ -48,74 +54,78 @@
 </nav>
 
 
-<h2>Lista de Usuarios</h2>
 
-<table class="table">
-    <tr>
-        <th style="visibility:hidden">
-            @Html.DisplayNameFor(model => model.Codigo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Apellido)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Telefono)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Direccion)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Dni)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.puestoID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.nombrePuesto)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+<div class="container">
+    <center>
+        <h3>Lista de Usuarios</h3>
+    </center>
+    <table class="table">
         <tr>
-            <td style="visibility:hidden">
-                @Html.DisplayFor(modelItem => item.Codigo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Apellido)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Telefono)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Direccion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Dni)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.puestoID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.nombrePuesto)
-            </td>
-            <td>
-                @Html.ActionLink("Seleccionar", "Actualizar", new { codigo = item.Codigo }, new { @class = "btn btn-primary" })
-            </td>
+            <th style=" display:none"">
+                @Html.DisplayNameFor(model => model.Codigo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Apellido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Telefono)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Direccion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Dni)
+            </th>
+            <th style="display:none">
+                @Html.DisplayNameFor(model => model.puestoID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nombrePuesto)
+            </th>
+            <th></th>
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td style="display:none">
+                    @Html.DisplayFor(modelItem => item.Codigo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Apellido)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telefono)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Direccion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Dni)
+                </td>
+                <td style="display:none">
+                    @Html.DisplayFor(modelItem => item.puestoID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nombrePuesto)
+                </td>
+                <td>
+                    @Html.ActionLink("Seleccionar", "Actualizar", new { codigo = item.Codigo }, new { @class = "btn btn-primary" })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

@@ -187,17 +187,10 @@ namespace Proyecto_tienda_app.Controllers
             //ejecutar
 
             ViewBag.mensaje = productos.CRUD("sp_updateProduct", pars, 2);
-
-
-
             ViewBag.categorias = new SelectList(categorias.listado(), "codigo", "nombre", reg.codigo);
-
             ViewBag.productos = productos.listado();
-
             return View(reg);
-
         }
-
 
         public ActionResult Eliminar(Producto reg)
 
