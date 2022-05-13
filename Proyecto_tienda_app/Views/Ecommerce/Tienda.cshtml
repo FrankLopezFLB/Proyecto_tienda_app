@@ -74,7 +74,7 @@
         @using (Html.BeginForm())
         {
             <em>Ingrese el Nombre</em>
-            @Html.TextBox("nombre", "", new { @class="form-control", @style="display:inline-block!important;" })
+            @Html.TextBox("nombre", "", new { @class = "form-control", @style = "display:inline-block!important;" })
             <button class="btn btn-success">Buscar</button>
         }
     </div>
@@ -129,5 +129,18 @@
         </div>
     }
 </div>
+<script>
+  window.watsonAssistantChatOptions = {
+      integrationID: "33682014-2a0e-4aff-89be-2be8e043ec8f", // The ID of this integration.
+      region: "au-syd", // The region your integration is hosted in.
+      serviceInstanceID: "3500ae2d-9bad-4907-9a04-c28f4a2713e5", // The ID of your service instance.
+      onLoad: function(instance) { instance.render(); }
+    };
+  setTimeout(function(){
+    const t=document.createElement('script');
+    t.src="https://web-chat.global.assistant.watson.appdomain.cloud/versions/" + (window.watsonAssistantChatOptions.clientVersion || 'latest') + "/WatsonAssistantChatEntry.js"
+    document.head.appendChild(t);
+  });
+</script>
 
 
